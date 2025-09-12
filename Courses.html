@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Courses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
+                </svg>
+                <h1 class="text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="homepage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
+                <a href="courses.html" class="text-blue-600 font-bold transition duration-150">Courses</a>
+                <a href="about.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
+                <!-- The signin button is now replaced by a signout button and its visibility is controlled by the JavaScript -->
+                <button id="signout-button" class="px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content - Courses Section -->
+    <main class="flex-grow container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-extrabold text-gray-900 text-center mb-12">Our Featured Courses</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Course Card 1 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <!-- Direct link to a web development image -->
+                <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2670&auto=format&fit=crop" alt="Web Development Course">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Web Development for Beginners</h4>
+                    <p class="text-gray-600 text-sm mb-4">Learn to build modern websites from scratch using HTML, CSS, and JavaScript. Perfect for beginners with no prior coding experience.</p>
+                    <div class="flex items-center justify-between text-gray-500 text-sm mb-4">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v5a1 1 0 102 0V7zm-2.25 6.75a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                            </svg>
+                            80 hours
+                        </span>
+                        <span class="text-xl font-bold text-gray-900">₹4,999</span>
+                    </div>
+                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                </div>
+            </div>
+
+            <!-- Course Card 2 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <!-- Replace the URL below with the actual image link for your course -->
+                <img class="w-full h-48 object-cover" src="https://www.naukri.com/campus/career-guidance/wp-content/uploads/2023/11/what-is-data-science-1536x960.jpg" alt="Data Science Course">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Introduction to Data Science</h4>
+                    <p class="text-gray-600 text-sm mb-4">Dive into the world of data science. Learn to analyze, interpret, and visualize data using Python and key libraries.</p>
+                    <div class="flex items-center justify-between text-gray-500 text-sm mb-4">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v5a1 1 0 102 0V7zm-2.25 6.75a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                            </svg>
+                            120 hours
+                        </span>
+                        <span class="text-xl font-bold text-gray-900">₹5,999</span>
+                    </div>
+                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                </div>
+            </div>
+
+            <!-- Course Card 3 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <!-- Replace the URL below with the actual image link for your course -->
+                <img class="w-full h-48 object-cover" src="https://www.ducatindia.com/_next/image?url=https%3A%2F%2Fadmin.ducatindia.com%2Fblog%2F1737465366012ui-ux-design-portfolio.jpg&w=1920&q=75" alt="UI/UX Design Course">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Mastering UI/UX Design</h4>
+                    <p class="text-gray-600 text-sm mb-4">Create beautiful and intuitive user interfaces. Learn the principles of user experience design and prototyping with Figma.</p>
+                    <div class="flex items-center justify-between text-gray-500 text-sm mb-4">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v5a1 1 0 102 0V7zm-2.25 6.75a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                            </svg>
+                            90 hours
+                        </span>
+                        <span class="text-xl font-bold text-gray-900">₹3,999</span>
+                    </div>
+                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                </div>
+            </div>
+            <!-- New Course Card 4 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <!-- New course image placeholder -->
+                <img class="w-full h-48 object-cover" src="https://i0.wp.com/www.walkweltech.com/blog/wp-content/uploads/2019/11/26-blog.png?w=1536&ssl=1" alt="Mobile App Development Course">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Mobile App Development</h4>
+                    <p class="text-gray-600 text-sm mb-4">Build native and cross-platform mobile apps for iOS and Android. Master Swift, Kotlin, and React Native.</p>
+                    <div class="flex items-center justify-between text-gray-500 text-sm mb-4">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v5a1 1 0 102 0V7zm-2.25 6.75a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                            </svg>
+                            150 hours
+                        </span>
+                        <span class="text-xl font-bold text-gray-900">₹6,999</span>
+                    </div>
+                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                </div>
+            </div>
+
+            <!-- New Course Card 5 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <!-- New course image placeholder -->
+                <img class="w-full h-48 object-cover" src="https://s3-ap-south-1.amazonaws.com/ricedigitals3bucket/AUPortalContent/2021/05/22121232/Untitled-design-391.png" alt="Digital Marketing Course">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Advanced Digital Marketing</h4>
+                    <p class="text-gray-600 text-sm mb-4">Master SEO, SEM, social media, and content marketing to drive business growth and build a strong online presence.</p>
+                    <div class="flex items-center justify-between text-gray-500 text-sm mb-4">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v5a1 1 0 102 0V7zm-2.25 6.75a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                            </svg>
+                            60 hours
+                        </span>
+                        <span class="text-xl font-bold text-gray-900">₹3,499</span>
+                    </div>
+                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                </div>
+            </div>
+            <!-- New Course Card 6 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+                <!-- New course image placeholder -->
+                <img class="w-full h-48 object-cover" src="https://techknowledgebooks.com/wp-content/uploads/2025/03/Cryptography-and-Network-SecurityGE96A1-768x990.jpg" alt="Computer Networks and Security Course">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Computer Networks and Security</h4>
+                    <p class="text-gray-600 text-sm mb-4">Understand the fundamentals of networking and cyber security. Learn to protect data and systems from threats.</p>
+                    <div class="flex items-center justify-between text-gray-500 text-sm mb-4">
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v5a1 1 0 102 0V7zm-2.25 6.75a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                            </svg>
+                            100 hours
+                        </span>
+                        <span class="text-xl font-bold text-gray-900">₹6,499</span>
+                    </div>
+                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 EduVerse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signoutButton = document.getElementById('signout-button');
+            
+            // Function to get the login status from localStorage
+            function getLoginStatus() {
+                return localStorage.getItem('isLoggedIn') === 'true';
+            }
+
+            // Function to update the UI based on login status
+            function updateUI() {
+                if (getLoginStatus()) {
+                    signoutButton.classList.remove('hidden');
+                } else {
+                    signoutButton.classList.add('hidden');
+                }
+            }
+
+            // Handle sign-out button click
+            if (signoutButton) {
+                signoutButton.addEventListener('click', () => {
+                    localStorage.setItem('isLoggedIn', 'false');
+                    updateUI();
+                    window.location.href = 'elearning.html';
+                });
+            }
+
+            // Initial UI update
+            updateUI();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Homepage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
+                </svg>
+                <h1 class="text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
+                <a href="Aboutpage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
+                <a href="elearning.html" id="signin-button" class="px-6 py-2 border border-transparent text-white font-medium bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150">Sign In</a>
+                <button id="signout-button" class="hidden px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content - Hero Section -->
+    <header class="flex-grow flex items-center justify-center bg-white">
+        <div class="container mx-auto px-4 py-16 text-center">
+            <h2 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">Your Journey to Knowledge Starts Here</h2>
+            <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">Explore a wide range of courses and start learning today. Our expert instructors and flexible platform make it easy to grow your skills.</p>
+            <div class="mt-8 flex justify-center space-x-4">
+                <a href="courses.html" class="px-8 py-4 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">Browse Courses</a>
+                <a href="Aboutpage.html" class="px-8 py-4 text-lg font-bold text-blue-600 bg-white hover:bg-gray-100 border-2 border-blue-600 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">Learn More</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-4xl font-bold text-gray-800">Why Choose Us?</h3>
+            <div class="mt-12 grid gap-8 md:grid-cols-3">
+                <div class="bg-white p-8 rounded-2xl shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l6.004-.49a5.95 5.95 0 011.08-.242m1.42.06a5.95 5.95 0 01.996.347m-3.418 2.378l1.426-1.426m6.772-2.37a5.95 5.95 0 01-.242-1.08l-.49-6.004m-1.5 8.25c.01-.245.02-.49.03-.735m-.03.735a1.875 1.875 0 01-.243-1.08l-.49-6.004M15 11.25H9.75m5.25 0a1.875 1.875 0 01-1.875-1.875V7.5m1.875 1.875a1.875 1.875 0 00-1.875-1.875m3.75 3.75a1.875 1.875 0 01-1.875-1.875V7.5m1.875 1.875a1.875 1.875 0 00-1.875-1.875m3.75 3.75a1.875 1.875 0 01-1.875-1.875V7.5m1.875 1.875a1.875 1.875 0 00-1.875-1.875" />
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Expert Instructors</h4>
+                    <p class="text-gray-600">Learn from industry leaders with years of experience and a passion for teaching.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Flexible Learning</h4>
+                    <p class="text-gray-600">Study at your own pace, on your own schedule. Our platform is accessible 24/7.</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5l-3 3-3-3m-6 3h18a3 3 0 01-3 3H6a3 3 0 01-3-3zM15 10.5L9 4.5M15 4.5l-6 6M15 4.5l-6 6M15 4.5L9 10.5" />
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">Affordable Pricing</h4>
+                    <p class="text-gray-600">Choose a plan that fits your budget with transparent, fair pricing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="cta-section" class="bg-blue-600 py-16 text-white text-center">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-bold">Ready to Start Learning?</h3>
+            <p class="mt-4 text-xl max-w-2xl mx-auto">Join thousands of students and unlock your full potential today. It's free to get started!</p>
+            <div class="mt-8">
+                <a href="elearning.html" class="px-8 py-4 text-lg font-bold text-blue-600 bg-white hover:bg-gray-100 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">Sign Up for Free</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 EduVerse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signinButton = document.getElementById('signin-button');
+            const signoutButton = document.getElementById('signout-button');
+            const ctaSection = document.getElementById('cta-section');
+
+            // Function to get the login status from localStorage
+            function getLoginStatus() {
+                return localStorage.getItem('isLoggedIn') === 'true';
+            }
+
+            // Function to update the UI based on login status
+            function updateUI() {
+                if (getLoginStatus()) {
+                    signinButton.classList.add('hidden');
+                    signoutButton.classList.remove('hidden');
+                    ctaSection.classList.add('hidden');
+                } else {
+                    signinButton.classList.remove('hidden');
+                    signoutButton.classList.add('hidden');
+                    ctaSection.classList.remove('hidden');
+                }
+            }
+
+            // Handle sign-out button click
+            if (signoutButton) {
+                signoutButton.addEventListener('click', () => {
+                    localStorage.setItem('isLoggedIn', 'false');
+                    updateUI();
+                    window.location.href = 'elearning.html'; // Redirect to the login page
+                });
+            }
+
+            // Initial UI update
+            updateUI();
+        });
+    </script>
+</body>
+</html>

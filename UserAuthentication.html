@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning - Sign In & Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-lg p-8 space-y-8 bg-white rounded-2xl shadow-xl">
+        <div class="text-center">
+            <div class="flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-blue-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
+                </svg>
+                <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 ml-2">EduVerse</h1>
+            </div>
+            <p class="mt-2 text-gray-500">Learn. Grow. Succeed.</p>
+        </div>
+
+        <!-- Sign In Form -->
+        <div id="signin-form" class="space-y-6">
+            <h2 class="text-3xl font-bold text-center text-gray-800">Sign In</h2>
+            <form id="signinForm" action="#" method="POST" class="space-y-4">
+                <div>
+                    <label for="email-signin" class="block text-sm font-medium text-gray-700">Email address</label>
+                    <input id="email-signin" name="email" type="email" autocomplete="email" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <label for="password-signin" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input id="password-signin" name="password" type="password" autocomplete="current-password" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+                    </div>
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500 transition duration-150 ease-in-out">Forgot your password?</a>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+            <div class="mt-6 text-center">
+                <p class="text-sm">Not a member? <a href="#" id="show-signup" class="font-medium text-blue-600 hover:text-blue-500 transition duration-150 ease-in-out">Sign up for free</a></p>
+            </div>
+        </div>
+
+        <!-- Sign Up Form (hidden by default) -->
+        <div id="signup-form" class="space-y-6 hidden">
+            <h2 class="text-3xl font-bold text-center text-gray-800">Sign Up</h2>
+            <form id="signupForm" action="#" method="POST" class="space-y-4">
+                 <div>
+                    <label for="name-signup" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input id="name-signup" name="name" type="text" autocomplete="name" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <label for="email-signup" class="block text-sm font-medium text-gray-700">Email address</label>
+                    <input id="email-signup" name="email" type="email" autocomplete="email" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <label for="password-signup" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input id="password-signup" name="password" type="password" autocomplete="new-password" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <label for="password-confirm" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <input id="password-confirm" name="password-confirm" type="password" autocomplete="new-password" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                        Sign up
+                    </button>
+                </div>
+            </form>
+            <div class="mt-6 text-center">
+                <p class="text-sm">Already a member? <a href="#" id="show-signin" class="font-medium text-blue-600 hover:text-blue-500 transition duration-150 ease-in-out">Sign in</a></p>
+            </div>
+        </div>
+
+        <!-- Security Question Form (hidden by default) -->
+        <div id="security-form" class="space-y-6 hidden">
+            <h2 class="text-3xl font-bold text-center text-gray-800">Security Question</h2>
+            <form id="securityForm" action="#" method="POST" class="space-y-4">
+                <div>
+                    <label for="security-question" class="block text-sm font-medium text-gray-700">Choose a Security Question</label>
+                    <select id="security-question" name="security-question" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                        <option value="">Select a question...</option>
+                        <option value="pet">What was the name of your first pet?</option>
+                        <option value="city">What city were you born in?</option>
+                        <option value="mother">What is your mother's maiden name?</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="security-answer" class="block text-sm font-medium text-gray-700">Your Answer</label>
+                    <input id="security-answer" name="security-answer" type="text" autocomplete="off" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Review Information Form (hidden by default) -->
+        <div id="review-form" class="space-y-6 hidden">
+            <h2 class="text-3xl font-bold text-center text-gray-800">Review Your Information</h2>
+            <div class="space-y-4 text-gray-700">
+                <p><strong>Full Name:</strong> <span id="review-name"></span></p>
+                <p><strong>Email:</strong> <span id="review-email"></span></p>
+                <p><strong>Phone Number:</strong> <span id="review-phone"></span></p>
+                <div class="flex items-center">
+                    <input id="agree-terms" name="agree-terms" type="checkbox" required class="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                    <label for="agree-terms" class="ml-2 block text-sm text-gray-900">I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and Services</a></label>
+                </div>
+            </div>
+            <div>
+                <button id="final-signup" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+                    Confirm and Sign Up
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signinForm = document.getElementById('signinForm');
+            const signupForm = document.getElementById('signupForm');
+            const showSignupLink = document.getElementById('show-signup');
+            const showSigninLink = document.getElementById('show-signin');
+            const signinContainer = document.getElementById('signin-form');
+            const signupContainer = document.getElementById('signup-form');
+            const securityContainer = document.getElementById('security-form');
+            const reviewContainer = document.getElementById('review-form');
+            const securityForm = document.getElementById('securityForm');
+            const finalSignupBtn = document.getElementById('final-signup');
+            const userData = {};
+
+            const backendUrl = "http://localhost:3000"; // REPLACE WITH YOUR PUBLIC BACKEND URL
+
+            // Function to show a temporary message
+            function showMessage(text, isError = false) {
+                const messageBox = document.createElement('div');
+                messageBox.classList.add('message-box');
+                messageBox.style.backgroundColor = isError ? '#fee2e2' : '#d1fae5';
+                messageBox.style.color = isError ? '#991b1b' : '#065f46';
+                messageBox.style.border = isError ? '1px solid #fca5a5' : '1px solid #a7f3d0';
+                messageBox.innerHTML = `<p class="font-semibold">${text}</p>`;
+                document.body.appendChild(messageBox);
+                setTimeout(() => {
+                    messageBox.remove();
+                }, 3000);
+            }
+
+            // Event listener to toggle between sign-in and sign-up forms
+            if (showSignupLink) {
+                showSignupLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    signinContainer.classList.add('hidden');
+                    signupContainer.classList.remove('hidden');
+                });
+            }
+
+            if (showSigninLink) {
+                showSigninLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    signupContainer.classList.add('hidden');
+                    signinContainer.classList.remove('hidden');
+                });
+            }
+
+            // Handle Sign-Up form submission (Step 1)
+            if (signupForm) {
+                signupForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('name-signup').value;
+                    const email = document.getElementById('email-signup').value;
+                    const password = document.getElementById('password-signup').value;
+                    const passwordConfirm = document.getElementById('password-confirm').value;
+                    
+                    const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+                    if (password !== passwordConfirm) {
+                        showMessage("Passwords do not match.", true);
+                        return;
+                    }
+
+                    if (password.length < 6 || !specialCharRegex.test(password)) {
+                        showMessage("Password must be at least 6 characters long and contain at least one special character.", true);
+                        return;
+                    }
+                    
+                    // Store user data in a temporary object
+                    userData.name = name;
+                    userData.email = email;
+                    userData.password = password;
+
+                    // Transition to the security form
+                    signupContainer.classList.add('hidden');
+                    securityContainer.classList.remove('hidden');
+                });
+            }
+
+            // Handle Security Question form submission (Step 2)
+            if (securityForm) {
+                securityForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    userData.securityQuestion = document.getElementById('security-question').value;
+                    userData.securityAnswer = document.getElementById('security-answer').value;
+                    
+                    // Populate review page
+                    document.getElementById('review-name').textContent = userData.name;
+                    document.getElementById('review-email').textContent = userData.email;
+                    // Note: Phone number is not in the form, so we'll leave it as a placeholder for now
+                    document.getElementById('review-phone').textContent = "Not provided";
+
+                    // Transition to the review form
+                    securityContainer.classList.add('hidden');
+                    reviewContainer.classList.remove('hidden');
+                });
+            }
+
+            // Handle Final Sign-Up button click (Step 3)
+            if (finalSignupBtn) {
+                finalSignupBtn.addEventListener('click', async () => {
+                    if (!document.getElementById('agree-terms').checked) {
+                        showMessage("You must agree to the Terms and Services.", true);
+                        return;
+                    }
+                    
+                    try {
+                        const response = await fetch(`${backendUrl}/api/signup`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(userData),
+                        });
+                        
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            showMessage(result.message);
+                            // Redirect to sign-in page after successful sign-up
+                            setTimeout(() => {
+                                window.location.href = 'homepage.html';
+                            }, 1000);
+                        } else {
+                            showMessage(result.message, true);
+                        }
+                    } catch (error) {
+                        showMessage('Sign up failed. Please try again.', true);
+                    }
+                });
+            }
+
+
+            // Handle Sign-In form submission
+            if (signinForm) {
+                signinForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('email-signin').value;
+                    const password = document.getElementById('password-signin').value;
+                    
+                    try {
+                        const response = await fetch(`${backendUrl}/api/signin`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ email, password }),
+                        });
+                        
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            showMessage("Login successful!");
+                            setTimeout(() => {
+                                window.location.href = 'homepage.html';
+                            }, 1000);
+                        } else {
+                            showMessage(result.message, true);
+                        }
+                    } catch (error) {
+                        showMessage('Sign in failed. Please check your server.', true);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

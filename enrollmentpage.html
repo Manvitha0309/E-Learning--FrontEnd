@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Enrollment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-lg p-8 space-y-8 bg-white rounded-2xl shadow-xl">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800">Welcome to The Course</h1>
+            <p class="mt-2 text-gray-500">To enroll, please enter the security code.</p>
+        </div>
+
+        <form id="enrollment-form" class="space-y-6">
+            <div class="relative">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input id="email" name="email" type="email" autocomplete="email" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div class="relative">
+                <label for="security-code" class="block text-sm font-medium text-gray-700">Enter Security Code</label>
+                <input id="security-code" name="security-code" type="text" autocomplete="off" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div class="flex items-center justify-between space-x-4">
+                <button type="button" id="get-code-button"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150">
+                    Get Security Code
+                </button>
+                <button type="submit"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150">
+                    Submit Code
+                </button>
+            </div>
+
+            <div id="message-box" class="hidden text-center py-2 px-4 rounded-lg"></div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const getCodeButton = document.getElementById('get-code-button');
+            const enrollmentForm = document.getElementById('enrollment-form');
+            const emailInput = document.getElementById('email');
+            const securityCodeInput = document.getElementById('security-code');
+            const messageBox = document.getElementById('message-box');
+
+            const backendUrl = "https://e-learning-backend-hywc.onrender.com";
+
+            function showMessage(text, isError = false) {
+                messageBox.textContent = text;
+                messageBox.classList.remove('hidden');
+                if (isError) {
+                    messageBox.style.backgroundColor = '#fee2e2';
+                    messageBox.style.color = '#991b1b';
+                    messageBox.style.border = '1px solid #fca5a5';
+                } else {
+                    messageBox.style.backgroundColor = '#d1fae5';
+                    messageBox.style.color = '#065f4d';
+                    messageBox.style.border = '1px solid #a7f3d0';
+                }
+            }
+
+            getCodeButton.addEventListener('click', async () => {
+                const email = emailInput.value;
+                if (!email) {
+                    showMessage('Please enter your email.', true);
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${backendUrl}/api/get-security-code`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email }),
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        showMessage(result.message);
+                    } else {
+                        showMessage(result.message, true);
+                    }
+                } catch (error) {
+                    showMessage('Failed to connect to the server. Please ensure the backend is running.', true);
+                }
+            });
+
+            enrollmentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = emailInput.value;
+                const code = securityCodeInput.value;
+
+                if (!email || !code) {
+                    showMessage('Please enter both your email and the code.', true);
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`${backendUrl}/api/verify-security-code`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, code }),
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        showMessage(result.message);
+                        setTimeout(() => {
+                            window.location.href = 'contentspage.html';
+                        }, 1000);
+                    } else {
+                        showMessage(result.message, true);
+                    }
+                } catch (error) {
+                    showMessage('Failed to connect to the server. Please ensure the backend is running.', true);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
