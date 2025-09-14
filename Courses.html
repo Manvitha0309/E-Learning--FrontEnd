@@ -16,7 +16,6 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Navigation Bar -->
     <nav class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center">
@@ -29,20 +28,16 @@
                 <a href="homepage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
                 <a href="courses.html" class="text-blue-600 font-bold transition duration-150">Courses</a>
                 <a href="About.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
-                <!-- The signin button is now replaced by a signout button and its visibility is controlled by the JavaScript -->
                 <button id="signout-button" class="px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">Sign Out</button>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content - Courses Section -->
     <main class="flex-grow container mx-auto px-4 py-16">
         <h2 class="text-4xl font-extrabold text-gray-900 text-center mb-12">Our Featured Courses</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Course Card 1 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                <!-- Direct link to a web development image -->
                 <img class="w-full h-48 object-cover" src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2670&auto=format&fit=crop" alt="Web Development Course">
                 <div class="p-6">
                     <h4 class="text-2xl font-bold text-gray-800 mb-2">Web Development for Beginners</h4>
@@ -56,13 +51,11 @@
                         </span>
                         <span class="text-xl font-bold text-gray-900">₹4,999</span>
                     </div>
-                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                    <a href="enrollmentpage.html?course=webdev" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
                 </div>
             </div>
 
-            <!-- Course Card 2 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                <!-- Replace the URL below with the actual image link for your course -->
                 <img class="w-full h-48 object-cover" src="https://www.naukri.com/campus/career-guidance/wp-content/uploads/2023/11/what-is-data-science-1536x960.jpg" alt="Data Science Course">
                 <div class="p-6">
                     <h4 class="text-2xl font-bold text-gray-800 mb-2">Introduction to Data Science</h4>
@@ -76,13 +69,11 @@
                         </span>
                         <span class="text-xl font-bold text-gray-900">₹5,999</span>
                     </div>
-                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                    <a href="enrollmentpage.html?course=datascience" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
                 </div>
             </div>
 
-            <!-- Course Card 3 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                <!-- Replace the URL below with the actual image link for your course -->
                 <img class="w-full h-48 object-cover" src="https://www.ducatindia.com/_next/image?url=https%3A%2F%2Fadmin.ducatindia.com%2Fblog%2F1737465366012ui-ux-design-portfolio.jpg&w=1920&q=75" alt="UI/UX Design Course">
                 <div class="p-6">
                     <h4 class="text-2xl font-bold text-gray-800 mb-2">Mastering UI/UX Design</h4>
@@ -96,12 +87,10 @@
                         </span>
                         <span class="text-xl font-bold text-gray-900">₹3,999</span>
                     </div>
-                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                    <a href="enrollmentpage.html?course=uiux" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
                 </div>
             </div>
-            <!-- New Course Card 4 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                <!-- New course image placeholder -->
                 <img class="w-full h-48 object-cover" src="https://i0.wp.com/www.walkweltech.com/blog/wp-content/uploads/2019/11/26-blog.png?w=1536&ssl=1" alt="Mobile App Development Course">
                 <div class="p-6">
                     <h4 class="text-2xl font-bold text-gray-800 mb-2">Mobile App Development</h4>
@@ -115,13 +104,11 @@
                         </span>
                         <span class="text-xl font-bold text-gray-900">₹6,999</span>
                     </div>
-                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                    <a href="enrollmentpage.html?course=mobiledev" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
                 </div>
             </div>
 
-            <!-- New Course Card 5 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                <!-- New course image placeholder -->
                 <img class="w-full h-48 object-cover" src="https://s3-ap-south-1.amazonaws.com/ricedigitals3bucket/AUPortalContent/2021/05/22121232/Untitled-design-391.png" alt="Digital Marketing Course">
                 <div class="p-6">
                     <h4 class="text-2xl font-bold text-gray-800 mb-2">Advanced Digital Marketing</h4>
@@ -135,12 +122,10 @@
                         </span>
                         <span class="text-xl font-bold text-gray-900">₹3,499</span>
                     </div>
-                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                    <a href="enrollmentpage.html?course=digitalmarketing" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
                 </div>
             </div>
-            <!-- New Course Card 6 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-                <!-- New course image placeholder -->
                 <img class="w-full h-48 object-cover" src="https://techknowledgebooks.com/wp-content/uploads/2025/03/Cryptography-and-Network-SecurityGE96A1-768x990.jpg" alt="Computer Networks and Security Course">
                 <div class="p-6">
                     <h4 class="text-2xl font-bold text-gray-800 mb-2">Computer Networks and Security</h4>
@@ -154,13 +139,12 @@
                         </span>
                         <span class="text-xl font-bold text-gray-900">₹6,499</span>
                     </div>
-                    <a href="enrollmentpage.html" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
+                    <a href="enrollmentpage.html?course=cns" class="block w-full text-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 transition duration-150">Enroll Now</a>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8 mt-auto">
         <div class="container mx-auto px-4 text-center">
             <p>&copy; 2023 EduVerse. All rights reserved.</p>
@@ -171,12 +155,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const signoutButton = document.getElementById('signout-button');
             
-            // Function to get the login status from localStorage
             function getLoginStatus() {
                 return localStorage.getItem('isLoggedIn') === 'true';
             }
 
-            // Function to update the UI based on login status
             function updateUI() {
                 if (getLoginStatus()) {
                     signoutButton.classList.remove('hidden');
@@ -185,19 +167,16 @@
                 }
             }
 
-            // Handle sign-out button click
             if (signoutButton) {
                 signoutButton.addEventListener('click', () => {
                     localStorage.setItem('isLoggedIn', 'false');
                     updateUI();
-                    window.location.href = 'elearning.html';
+                    window.location.href = 'index.html';
                 });
             }
 
-            // Initial UI update
             updateUI();
         });
     </script>
 </body>
 </html>
-
