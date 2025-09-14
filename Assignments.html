@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1 Assignments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
+                </svg>
+                <h1 class="text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="homepage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
+                <a href="courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
+                <a href="About.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
+                <button id="signout-button" class="px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 py-16">
+        <h2 id="assignment-title" class="text-4xl font-extrabold text-gray-900 text-center mb-12">Assignments</h2>
+
+        <div id="quiz-container" class="bg-white rounded-2xl shadow-lg p-8">
+            <form id="quiz-form">
+                </form>
+            <div id="results-container" class="mt-8 hidden text-center">
+                <p id="score-text" class="text-2xl font-bold text-gray-800 mb-4"></p>
+                <button id="try-again-button" class="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150">Try Again</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 EduVerse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizForm = document.getElementById('quiz-form');
+            const resultsContainer = document.getElementById('results-container');
+            const scoreText = document.getElementById('score-text');
+            const quizContainer = document.getElementById('quiz-container');
+            const assignmentTitle = document.getElementById('assignment-title');
+            const tryAgainButton = document.getElementById('try-again-button');
+
+            // Hardcoded quiz data for each course
+            const quizzes = {
+                webdev: [
+                    {
+                        question: "What does HTML stand for?",
+                        options: ["Hyper Text Markup Language", "High-level Text Management Language", "Hyperlink and Text Markup Language", "Home Tool Markup Language"],
+                        answer: "Hyper Text Markup Language"
+                    },
+                    {
+                        question: "Which of the following is used to add a heading in HTML?",
+                        options: ["<h>", "<h1>", "<head>", "<heading>"],
+                        answer: "<h1>"
+                    },
+                    {
+                        question: "What is the correct way to link an external stylesheet?",
+                        options: ["<style rel='stylesheet' href='style.css'>", "<link href='style.css'>", "<link rel='stylesheet' href='style.css'>", "<stylesheet>style.css</stylesheet>"],
+                        answer: "<link rel='stylesheet' href='style.css'>"
+                    },
+                    {
+                        question: "How do you select an element with id 'header' in CSS?",
+                        options: [".header", "#header", "header", "*header"],
+                        answer: "#header"
+                    },
+                    {
+                        question: "What is the primary function of JavaScript?",
+                        options: ["Styling web pages", "Creating database schemas", "Adding interactivity to web pages", "Managing server-side logic"],
+                        answer: "Adding interactivity to web pages"
+                    },
+                    {
+                        question: "Which HTML tag is used to define an internal stylesheet?",
+                        options: ["<script>", "<css>", "<style>", "<link>"],
+                        answer: "<style>"
+                    },
+                    {
+                        question: "What is the CSS 'box model'?",
+                        options: ["A model for creating 3D boxes", "A model for layout and spacing of elements", "A box for storing code", "A model for a responsive design"],
+                        answer: "A model for layout and spacing of elements"
+                    },
+                    {
+                        question: "How do you declare a variable in JavaScript?",
+                        options: ["var myVariable;", "v myVariable;", "variable myVariable;", "declare myVariable;"],
+                        answer: "var myVariable;"
+                    },
+                    {
+                        question: "Which property is used to change the background color?",
+                        options: ["color", "background-color", "bg-color", "background"],
+                        answer: "background-color"
+                    },
+                    {
+                        question: "What does the 'DOM' stand for?",
+                        options: ["Document Object Model", "Data Object Model", "Dynamic Order Model", "Digital Output Model"],
+                        answer: "Document Object Model"
+                    }
+                ],
+                cns: [
+                    {
+                        question: "Which of the following is a network topology?",
+                        options: ["Star", "Circle", "Square", "Line"],
+                        answer: "Star"
+                    },
+                    {
+                        question: "What is the primary purpose of a firewall?",
+                        options: ["To speed up a network connection", "To block unauthorized access to a network", "To store network data", "To manage network cables"],
+                        answer: "To block unauthorized access to a network"
+                    },
+                    {
+                        question: "What is the process of converting information into an unreadable format to prevent unauthorized access?",
+                        options: ["Hacking", "Cryptography", "Decoding", "Networking"],
+                        answer: "Cryptography"
+                    },
+                    {
+                        question: "A DDoS attack is a type of cyber attack. What does DDoS stand for?",
+                        options: ["Direct Denial of Service", "Distributed Denial of Service", "Dynamic Data on Server", "Distributed Data Operating System"],
+                        answer: "Distributed Denial of Service"
+                    },
+                    {
+                        question: "Which layer of the OSI model is responsible for routing data?",
+                        options: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"],
+                        answer: "Network Layer"
+                    },
+                    {
+                        question: "What is a 'Trojan' in the context of cyber security?",
+                        options: ["A type of network protocol", "A type of malicious software that disguises itself as legitimate software", "A type of firewall", "A secure network device"],
+                        answer: "A type of malicious software that disguises itself as legitimate software"
+                    },
+                    {
+                        question: "What is an IP address?",
+                        options: ["A unique identifier for a device on a network", "A programming language", "A type of network cable", "A web browser"],
+                        answer: "A unique identifier for a device on a network"
+                    },
+                    {
+                        question: "What is a 'phishing' attack?",
+                        options: ["An attack that uses a fishing rod", "An attack that tricks users into revealing personal information", "An attack that floods a network with traffic", "An attack that encrypts a user's files"],
+                        answer: "An attack that tricks users into revealing personal information"
+                    },
+                    {
+                        question: "What is the main purpose of an Intrusion Detection System (IDS)?",
+                        options: ["To block all network traffic", "To detect malicious activity and policy violations", "To manage user accounts", "To backup network data"],
+                        answer: "To detect malicious activity and policy violations"
+                    },
+                    {
+                        question: "Which of these is a common wireless network security protocol?",
+                        options: ["HTTP", "WEP", "FTP", "DNS"],
+                        answer: "WEP"
+                    }
+                ]
+            };
+            
+            // Get the course ID from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('course');
+            const quizQuestions = quizzes[courseId] || quizzes.cns; // Default to CNS if no quiz data is found
+
+            // Function to render the quiz questions
+            function renderQuiz() {
+                quizForm.innerHTML = ''; // Clear previous questions
+                quizQuestions.forEach((q, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'mb-6 p-4 border rounded-lg shadow-sm';
+                    
+                    const questionHeader = document.createElement('h3');
+                    questionHeader.className = 'text-xl font-bold text-gray-800 mb-4';
+                    questionHeader.textContent = `${index + 1}. ${q.question}`;
+                    questionDiv.appendChild(questionHeader);
+
+                    q.options.forEach(option => {
+                        const optionLabel = document.createElement('label');
+                        optionLabel.className = 'block text-gray-700 mb-2 cursor-pointer';
+
+                        const optionInput = document.createElement('input');
+                        optionInput.type = 'radio';
+                        optionInput.name = `question-${index}`;
+                        optionInput.value = option;
+                        optionInput.className = 'mr-2';
+
+                        optionLabel.appendChild(optionInput);
+                        optionLabel.appendChild(document.createTextNode(option));
+                        questionDiv.appendChild(optionLabel);
+                    });
+                    quizForm.appendChild(questionDiv);
+                });
+
+                const submitButton = document.createElement('button');
+                submitButton.type = 'submit';
+                submitButton.className = 'w-full px-6 py-3 text-lg font-bold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition duration-150';
+                submitButton.textContent = 'Submit Assignment';
+                quizForm.appendChild(submitButton);
+            }
+
+            // Function to calculate and display the score
+            function calculateScore(e) {
+                e.preventDefault();
+                let score = 0;
+                let totalQuestions = quizQuestions.length;
+
+                quizQuestions.forEach((q, index) => {
+                    const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+                    if (selectedOption && selectedOption.value === q.answer) {
+                        score++;
+                    }
+                });
+
+                quizForm.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+                scoreText.textContent = `Your score is ${score} out of ${totalQuestions}!`;
+            }
+
+            // Event listeners
+            quizForm.addEventListener('submit', calculateScore);
+            tryAgainButton.addEventListener('click', () => {
+                quizForm.classList.remove('hidden');
+                resultsContainer.classList.add('hidden');
+                renderQuiz();
+            });
+
+            // Initial render
+            renderQuiz();
+        });
+    </script>
+</body>
+</html>
