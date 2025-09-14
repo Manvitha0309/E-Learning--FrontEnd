@@ -24,9 +24,9 @@
                 <h1 class="text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
             </div>
             <div class="flex items-center space-x-4">
-                <a href="homepage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
-                <a href="courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
-                <a href="About.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
+                <a href="Homepage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
+                <a href="Courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
+                <a href="Aboutpage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
                 <button id="signout-button" class="px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">Sign Out</button>
             </div>
         </div>
@@ -37,7 +37,7 @@
 
         <div id="quiz-container" class="bg-white rounded-2xl shadow-lg p-8">
             <form id="quiz-form">
-                </form>
+            </form>
             <div id="results-container" class="mt-8 hidden text-center">
                 <p id="score-text" class="text-2xl font-bold text-gray-800 mb-4"></p>
                 <button id="try-again-button" class="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150">Try Again</button>
@@ -60,7 +60,6 @@
             const assignmentTitle = document.getElementById('assignment-title');
             const tryAgainButton = document.getElementById('try-again-button');
 
-            // Hardcoded quiz data for each course
             const quizzes = {
                 webdev: [
                     {
@@ -168,14 +167,12 @@
                 ]
             };
             
-            // Get the course ID from the URL
             const urlParams = new URLSearchParams(window.location.search);
             const courseId = urlParams.get('course');
-            const quizQuestions = quizzes[courseId] || quizzes.cns; // Default to CNS if no quiz data is found
+            const quizQuestions = quizzes[courseId] || quizzes.cns;
 
-            // Function to render the quiz questions
             function renderQuiz() {
-                quizForm.innerHTML = ''; // Clear previous questions
+                quizForm.innerHTML = '';
                 quizQuestions.forEach((q, index) => {
                     const questionDiv = document.createElement('div');
                     questionDiv.className = 'mb-6 p-4 border rounded-lg shadow-sm';
@@ -209,7 +206,6 @@
                 quizForm.appendChild(submitButton);
             }
 
-            // Function to calculate and display the score
             function calculateScore(e) {
                 e.preventDefault();
                 let score = 0;
@@ -227,7 +223,6 @@
                 scoreText.textContent = `Your score is ${score} out of ${totalQuestions}!`;
             }
 
-            // Event listeners
             quizForm.addEventListener('submit', calculateScore);
             tryAgainButton.addEventListener('click', () => {
                 quizForm.classList.remove('hidden');
@@ -235,7 +230,14 @@
                 renderQuiz();
             });
 
-            // Initial render
+            // **HIGHLIGHTED CHANGE: Add signout functionality**
+            const signoutButton = document.getElementById('signout-button');
+            signoutButton.addEventListener('click', () => {
+                localStorage.setItem('isLoggedIn', 'false');
+                localStorage.removeItem('enrolledEmail');
+                window.location.href = "index.html"; // Redirect to the login page
+            });
+
             renderQuiz();
         });
     </script>
