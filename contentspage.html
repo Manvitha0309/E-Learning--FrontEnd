@@ -15,7 +15,6 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- Navigation Bar -->
   <nav class="bg-white shadow-md">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center">
@@ -27,9 +26,9 @@
         <h1 class="text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
       </div>
       <div class="flex items-center space-x-4">
-        <a href="homepage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
-        <a href="courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
-        <a href="about.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
+        <a href="HomePage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
+        <a href="Courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
+        <a href="Aboutpage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
         <button id="signout-button"
           class="px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">
           Sign Out
@@ -38,77 +37,222 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <main class="flex-grow container mx-auto px-4 py-16">
-    <h2 class="text-4xl font-extrabold text-gray-900 text-center mb-12">Contents of the Course</h2>
-    <div class="space-y-8">
-      <!-- Module 1 -->
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Module 1: Introduction to CNS</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>What are Computer Networks?</li>
-          <li>Basic Network Topologies</li>
-          <li>Introduction to Cyber Security</li>
-          <li>Why Network Security is Important</li>
-        </ul>
+    <h2 id="course-title" class="text-4xl font-extrabold text-gray-900 text-center mb-12">Contents of the Course</h2>
+    <div id="course-contents" class="space-y-8">
       </div>
-      <!-- Module 2 -->
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Module 2: Network Security Fundamentals</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>Firewalls and Intrusion Detection Systems</li>
-          <li>Cryptography and its Role in Security</li>
-          <li>Types of Cyber Attacks</li>
-          <li>Risk Management and Security Policies</li>
-        </ul>
-      </div>
-      <!-- Module 3 -->
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Module 3: Advanced Topics in Security</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>Secure Coding Practices</li>
-          <li>Wireless Network Security</li>
-          <li>Penetration Testing Basics</li>
-          <li>Introduction to Ethical Hacking</li>
-        </ul>
-      </div>
-      <!-- Module 4 -->
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">Module 4: Real-World Applications</h3>
-        <ul class="list-disc list-inside text-gray-600 space-y-2">
-          <li>Implementing VPNs</li>
-          <li>Securing Cloud Environments</li>
-          <li>Digital Forensics and Incident Response</li>
-          <li>Future Trends in Network Security</li>
-        </ul>
-      </div>
-    </div>
 
-    <!-- Back Button -->
     <div class="text-center mt-12">
-      <a href="courses.html"
+      <a href="Courses.html"
         class="inline-block px-8 py-3 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transition duration-150">
         Back to Courses
       </a>
     </div>
   </main>
 
-  <!-- Footer -->
   <footer class="bg-gray-800 text-white py-8 mt-auto">
     <div class="container mx-auto px-4 text-center">
       <p>&copy; 2023 EduVerse. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- 🔥 HIGHLIGHTED CHANGE: Sign Out Script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const signoutButton = document.getElementById('signout-button');
+      const courseTitle = document.getElementById('course-title');
+      const courseContents = document.getElementById('course-contents');
+
+      // Course data storage
+      const courses = {
+        webdev: {
+          title: "Web Development for Beginners",
+          modules: [
+            {
+              title: "Module 1: HTML Basics",
+              topics: ["Introduction to HTML", "HTML Structure", "Text Formatting and Links", "Images and Tables"],
+              assignmentLink: "Assignments.html?course=datascience"
+            },
+            {
+              title: "Module 2: CSS Fundamentals",
+              topics: ["Introduction to CSS", "Selectors and Properties", "Box Model", "Flexbox and Grid Layout"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 3: JavaScript Essentials",
+              topics: ["Variables and Data Types", "Control Structures (if/else, loops)", "Functions and Events", "DOM Manipulation"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 4: Building a Website",
+              topics: ["Project Setup", "Creating a Multi-Page Website", "Responsive Design", "Deployment Basics"],
+              assignmentLink: "#"
+            }
+          ]
+        },
+        datascience: {
+          title: "Introduction to Data Science",
+          modules: [
+            {
+              title: "Module 1: Foundations",
+              topics: ["What is Data Science?", "The Data Science Lifecycle", "Python for Data Science", "Jupyter Notebooks"],
+              assignmentLink: "Assignments.html?course=datascience"
+            },
+            {
+              title: "Module 2: Data Manipulation",
+              topics: ["Using Pandas for DataFrames", "Data Cleaning and Preparation", "Working with CSV and Excel Files", "Merging and Joining Datasets"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 3: Data Visualization",
+              topics: ["Introduction to Matplotlib and Seaborn", "Creating Bar Charts and Line Plots", "Scatter Plots and Histograms", "Advanced Visualization Techniques"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 4: Machine Learning",
+              topics: ["Introduction to Supervised Learning", "Linear Regression", "Introduction to Unsupervised Learning", "Clustering Algorithms"],
+              assignmentLink: "#"
+            }
+          ]
+        },
+        uiux: {
+          title: "Mastering UI/UX Design",
+          modules: [
+            {
+              title: "Module 1: Introduction to Design",
+              topics: ["What is UI/UX?", "User-Centered Design Principles", "Design Thinking Process", "Wireframing and Prototyping"],
+              assignmentLink: "Assignments.html?course=uiux"
+            },
+            {
+              title: "Module 2: User Research",
+              topics: ["Conducting User Interviews", "Creating Personas and Scenarios", "User Journey Mapping", "Usability Testing"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 3: UI Design with Figma",
+              topics: ["Figma Basics", "Creating a Style Guide", "Designing Components and Variants", "Prototyping Interactive Flows"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 4: Final Project",
+              topics: ["Designing a Mobile App", "Creating a Portfolio Piece", "Presenting your Design to Stakeholders", "Preparing for a Design Career"],
+              assignmentLink: "#"
+            }
+          ]
+        },
+        mobiledev: {
+          title: "Mobile App Development",
+          modules: [
+            {
+              title: "Module 1: Introduction to Mobile",
+              topics: ["Native vs. Cross-Platform Development", "Introduction to Swift and Kotlin", "Basics of React Native", "Setting up Your Development Environment"],
+              assignmentLink: "Assignments.html?course=mobiledev"
+            },
+            {
+              title: "Module 2: Building UI",
+              topics: ["iOS UI with SwiftUI", "Android UI with Jetpack Compose", "React Native Components", "State Management in Mobile Apps"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 3: Data and APIs",
+              topics: ["Working with APIs", "Handling JSON data", "Local Storage Options", "User Authentication"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 4: App Deployment",
+              topics: ["Testing and Debugging", "Preparing an App for App Store", "Publishing to Google Play Store", "App Maintenance and Updates"],
+              assignmentLink: "#"
+            }
+          ]
+        },
+        digitalmarketing: {
+          title: "Advanced Digital Marketing",
+          modules: [
+            {
+              title: "Module 1: SEO and SEM",
+              topics: ["On-Page and Off-Page SEO", "Keyword Research", "Introduction to Google Ads", "Managing PPC Campaigns"],
+              assignmentLink: "Assignments.html?course=digitalmarketing"
+            },
+            {
+              title: "Module 2: Social Media Marketing",
+              topics: ["Developing a Social Media Strategy", "Content Creation and Scheduling", "Running Paid Social Campaigns", "Analytics and Reporting"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 3: Email Marketing and Analytics",
+              topics: ["Building an Email List", "Designing Effective Email Campaigns", "Introduction to Google Analytics", "Interpreting Key Metrics"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 4: Content Marketing",
+              topics: ["Content Strategy", "Blogging and Copywriting", "Video Marketing Basics", "Measuring Content ROI"],
+              assignmentLink: "#"
+            }
+          ]
+        },
+        cns: {
+          title: "Computer Networks and Security",
+          modules: [
+            {
+              title: "Module 1: Introduction to CNS",
+              topics: ["What are Computer Networks?", "Basic Network Topologies", "Introduction to Cyber Security", "Why Network Security is Important"],
+              assignmentLink: "Assignments.html?course=cns"
+            },
+            {
+              title: "Module 2: Network Security Fundamentals",
+              topics: ["Firewalls and Intrusion Detection Systems", "Cryptography and its Role in Security", "Types of Cyber Attacks", "Risk Management and Security Policies"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 3: Advanced Topics in Security",
+              topics: ["Secure Coding Practices", "Wireless Network Security", "Penetration Testing Basics", "Introduction to Ethical Hacking"],
+              assignmentLink: "#"
+            },
+            {
+              title: "Module 4: Real-World Applications",
+              topics: ["Implementing VPNs", "Securing Cloud Environments", "Digital Forensics and Incident Response", "Future Trends in Network Security"],
+              assignmentLink: "#"
+            }
+          ]
+        }
+      };
+
+      // Get the course ID from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get('course');
+      const selectedCourse = courses[courseId] || courses.cns;
+
+      // Populate the page with the correct course data
+      if (selectedCourse) {
+        courseTitle.textContent = `Contents of ${selectedCourse.title}`;
+        courseContents.innerHTML = '';
+        selectedCourse.modules.forEach((module, index) => {
+          const moduleDiv = document.createElement('div');
+          // Add flexbox classes to align content and button
+          moduleDiv.className = 'bg-white rounded-2xl shadow-lg p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0';
+          
+          let moduleContent = `
+            <div class="flex-grow">
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">${module.title}</h3>
+              <ul class="list-disc list-inside text-gray-600 space-y-2">
+                ${module.topics.map(topic => `<li>${topic}</li>`).join('')}
+              </ul>
+            </div>
+          `;
+          
+          // Add the Assignments button only for the first module (index 0)
+          if (index === 0) {
+            moduleContent += `<a href="${module.assignmentLink}" class="w-full sm:w-auto mt-4 sm:mt-0 px-6 py-2 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150 text-center">Assignments</a>`;
+          }
+          
+          moduleDiv.innerHTML = moduleContent;
+          courseContents.appendChild(moduleDiv);
+        });
+      }
 
       signoutButton.addEventListener('click', () => {
-        localStorage.setItem('isLoggedIn', 'false');       // Clear login status
-        localStorage.removeItem('enrolledEmail');          // Optional: clear enrolled email
-        window.location.href = "index.html";           // Redirect to login page
+        localStorage.setItem('isLoggedIn', 'false');
+        localStorage.removeItem('enrolledEmail');
+        window.location.href = "index.html";
       });
     });
   </script>
