@@ -14,7 +14,8 @@ const CONFIG = {
         VERIFY_SECURITY_CODE: "/api/verify-security-code",
         ASSIGNMENTS: "/api/assignments",
         SUBMIT_SCORE: "/api/assignments/submit-score",
-        GET_SCORES: "/api/assignments/scores"
+        GET_SCORES: "/api/assignments/scores",
+        CHECK_COMPLETION: "/api/assignments/check-completion"
     },
     
     // Application Settings

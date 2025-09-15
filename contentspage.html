@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contents of the Course</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="config.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
     body {
@@ -314,13 +315,26 @@
       // Get the course ID from the URL
       const urlParams = new URLSearchParams(window.location.search);
       const courseId = urlParams.get('course');
+      const userEmail = localStorage.getItem(CONFIG.STORAGE.ENROLLED_EMAIL) || 'demo@example.com';
       const selectedCourse = courses[courseId] || courses.cns;
+
+      // Function to check if user has completed an assignment
+      async function checkAssignmentCompletion(courseId, moduleId) {
+        try {
+          const response = await fetch(getApiUrl(`${CONFIG.API.CHECK_COMPLETION}/${userEmail}/${courseId}/${moduleId}`));
+          const result = await response.json();
+          return result;
+        } catch (error) {
+          console.error('Error checking completion status:', error);
+          return { completed: false };
+        }
+      }
 
       // Populate the page with the correct course data
       if (selectedCourse) {
         courseTitle.textContent = `Contents of ${selectedCourse.title}`;
         courseContents.innerHTML = '';
-        selectedCourse.modules.forEach((module, index) => {
+        selectedCourse.modules.forEach(async (module, index) => {
           const moduleDiv = document.createElement('div');
           // Add flexbox classes to align content and button
           moduleDiv.className = 'bg-white rounded-2xl shadow-lg p-4 md:p-6 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0';
@@ -336,7 +350,32 @@
           
           // Add the Assignments button for all modules that have assignment links
           if (module.assignmentLink && module.assignmentLink !== "#") {
-            moduleContent += `<a href="${module.assignmentLink}" class="w-full lg:w-auto mt-4 lg:mt-0 px-4 md:px-6 py-2 text-sm md:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150 text-center">Assignments</a>`;
+            // Extract module ID from assignment link
+            const moduleId = module.assignmentLink.split('module=')[1];
+            
+            // Check completion status
+            const completionStatus = await checkAssignmentCompletion(courseId, moduleId);
+            
+            if (completionStatus.completed) {
+              // Show completed assignment with score
+              moduleContent += `
+                <div class="w-full lg:w-auto mt-4 lg:mt-0 flex flex-col items-center space-y-2">
+                  <div class="flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span class="text-sm text-green-600 font-semibold">Completed</span>
+                  </div>
+                  <div class="text-xs text-gray-600">Score: ${completionStatus.score}/${completionStatus.totalQuestions} (${completionStatus.percentage}%)</div>
+                  <a href="${module.assignmentLink}" class="px-4 md:px-6 py-2 text-sm md:text-lg font-bold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition duration-150 text-center">
+                    Retake Assignment
+                  </a>
+                </div>
+              `;
+            } else {
+              // Show new assignment button
+              moduleContent += `<a href="${module.assignmentLink}" class="w-full lg:w-auto mt-4 lg:mt-0 px-4 md:px-6 py-2 text-sm md:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150 text-center">Take Assignment</a>`;
+            }
           } else {
             moduleContent += `<span class="w-full lg:w-auto mt-4 lg:mt-0 px-4 md:px-6 py-2 text-sm md:text-lg font-bold text-gray-400 bg-gray-200 rounded-lg shadow-md text-center">Coming Soon</span>`;
           }

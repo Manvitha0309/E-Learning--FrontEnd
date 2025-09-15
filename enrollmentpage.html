@@ -22,38 +22,57 @@
             <p class="mt-2 text-sm md:text-base text-gray-500">To enroll, please enter the security code.</p>
         </div>
 
-        <form id="enrollment-form" class="space-y-6">
+        <!-- Step 1: Email Input -->
+        <div id="email-step" class="space-y-6">
             <div class="relative">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
                 <input id="email" name="email" type="email" autocomplete="email" required
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
             </div>
 
-            <div class="relative">
-                <label for="security-code" class="block text-sm font-medium text-gray-700">Enter Security Code</label>
-                <input id="security-code" name="security-code" type="text" autocomplete="off" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0 sm:space-x-4">
+            <div class="flex justify-center">
                 <button type="button" id="get-code-button"
                     class="w-full sm:w-auto flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-base md:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
                     Get Security Code
                 </button>
-                <button type="submit"
+            </div>
+        </div>
+
+        <!-- Step 2: Security Code Input (hidden initially) -->
+        <div id="code-step" class="space-y-6 hidden">
+            <div class="text-center">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800">Enter Security Code</h2>
+                <p class="mt-2 text-sm md:text-base text-gray-500">We've sent a 6-digit code to your email</p>
+            </div>
+
+            <div class="relative">
+                <label for="security-code" class="block text-sm font-medium text-gray-700">Security Code</label>
+                <input id="security-code" name="security-code" type="text" autocomplete="off" required maxlength="6"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-2xl tracking-widest">
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0 sm:space-x-4">
+                <button type="button" id="back-to-email-button"
+                    class="w-full sm:w-auto flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-base md:text-lg font-bold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150">
+                    ← Back to Email
+                </button>
+                <button type="button" id="submit-code-button"
                     class="w-full sm:w-auto flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-base md:text-lg font-bold text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150">
                     Submit Code
                 </button>
             </div>
+        </div>
 
-            <div id="message-box" class="hidden text-center py-2 px-4 rounded-lg"></div>
-        </form>
+        <div id="message-box" class="hidden text-center py-2 px-4 rounded-lg"></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const getCodeButton = document.getElementById('get-code-button');
-            const enrollmentForm = document.getElementById('enrollment-form');
+            const submitCodeButton = document.getElementById('submit-code-button');
+            const backToEmailButton = document.getElementById('back-to-email-button');
+            const emailStep = document.getElementById('email-step');
+            const codeStep = document.getElementById('code-step');
             const emailInput = document.getElementById('email');
             const securityCodeInput = document.getElementById('security-code');
             const messageBox = document.getElementById('message-box');
@@ -61,6 +80,24 @@
             const courseId = urlParams.get('course');
             // Use centralized config
             const backendUrl = CONFIG.BACKEND_URL;
+
+            // Debug: Check if all elements are found
+            console.log('Elements found:', {
+                getCodeButton: !!getCodeButton,
+                submitCodeButton: !!submitCodeButton,
+                backToEmailButton: !!backToEmailButton,
+                emailStep: !!emailStep,
+                codeStep: !!codeStep,
+                emailInput: !!emailInput,
+                securityCodeInput: !!securityCodeInput,
+                messageBox: !!messageBox
+            });
+
+            // Test step transition function removed
+
+            // Test transition button removed
+
+            // Test functions removed - using direct approach now
 
             function showMessage(text, isError = false) {
                 messageBox.textContent = text;
@@ -76,7 +113,14 @@
                 }
             }
 
-            getCodeButton.addEventListener('click', async () => {
+            // Use a simple function approach instead of event listener
+            getCodeButton.onclick = function() {
+                handleGetCode();
+            };
+
+            async function handleGetCode() {
+                console.log('🔘 Get Code button clicked');
+                
                 const email = emailInput.value;
                 if (!email) {
                     showMessage('Please enter your email.', true);
@@ -95,41 +139,76 @@
                 `;
 
                 try {
-                    const response = await fetch(getApiUrl(CONFIG.API.GET_SECURITY_CODE), {
+                    const apiUrl = getApiUrl(CONFIG.API.GET_SECURITY_CODE);
+                    console.log('🚀 Making request to:', apiUrl);
+                    
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ email }),
+                        body: JSON.stringify({ email })
                     });
 
+                    console.log('📥 Response received:', response.status);
                     const result = await response.json();
+                    console.log('📊 Result:', result);
+                    
                     if (response.ok) {
                         showMessage(result.message);
+                        emailStep.classList.add('hidden');
+                        codeStep.classList.remove('hidden');
+                        setTimeout(() => {
+                            securityCodeInput.focus();
+                        }, 100);
                     } else {
                         showMessage(result.message, true);
+                        getCodeButton.disabled = false;
+                        getCodeButton.innerHTML = originalText;
                     }
                 } catch (error) {
-                    showMessage('Failed to connect to the server. Please ensure the backend is running.', true);
-                } finally {
-                    // Reset button state
+                    console.error('❌ Error:', error);
+                    showMessage('Failed to connect to the server.', true);
                     getCodeButton.disabled = false;
                     getCodeButton.innerHTML = originalText;
                 }
+            }
+
+            // Back to email button handler
+            backToEmailButton.addEventListener('click', (e) => {
+                codeStep.classList.add('hidden');
+                emailStep.classList.remove('hidden');
+                securityCodeInput.value = '';
+                messageBox.classList.add('hidden');
+                emailInput.focus();
             });
 
-            enrollmentForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
+            // Submit code button handler
+            submitCodeButton.addEventListener('click', async (e) => {
+                console.log('Submit code button clicked');
                 const email = emailInput.value;
                 const code = securityCodeInput.value;
+                
+                console.log('Email:', email, 'Code:', code);
 
-                if (!email || !code) {
-                    showMessage('Please enter both your email and the code.', true);
+                if (!code) {
+                    showMessage('Please enter the security code.', true);
                     return;
                 }
 
+                // Show loading state
+                const originalText = submitCodeButton.innerHTML;
+                submitCodeButton.disabled = true;
+                submitCodeButton.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Verifying...
+                `;
+
                 try {
-                    const response = await fetch(`${backendUrl}/api/verify-security-code`, {
+                    const response = await fetch(getApiUrl(CONFIG.API.VERIFY_SECURITY_CODE), {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -141,21 +220,40 @@
 
                     if (response.ok) {
                         showMessage(result.message);
+                        // Store enrollment data
+                        localStorage.setItem(CONFIG.STORAGE.IS_LOGGED_IN, 'true');
+                        localStorage.setItem(CONFIG.STORAGE.ENROLLED_EMAIL, email);
+                        
                         setTimeout(() => {
                             // Redirect with the course ID
                             if (courseId) {
                                 window.location.href = `contentspage.html?course=${courseId}`;
                             } else {
-                                window.location.href = 'contentspage.html';
+                                window.location.href = 'Courses.html';
                             }
                         }, 1000);
                     } else {
                         showMessage(result.message, true);
+                        // Reset button state
+                        submitCodeButton.disabled = false;
+                        submitCodeButton.innerHTML = originalText;
                     }
                 } catch (error) {
                     showMessage('Failed to connect to the server. Please ensure the backend is running.', true);
+                    // Reset button state
+                    submitCodeButton.disabled = false;
+                    submitCodeButton.innerHTML = originalText;
                 }
             });
+
+            // Allow Enter key to submit code
+            securityCodeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    submitCodeButton.click();
+                }
+            });
+
+            // Form removed - no longer needed
         });
     </script>
 </body>

@@ -299,16 +299,43 @@
                         });
                         
                         const result = await response.json();
+                        console.log('Login response:', result);
 
                         if (response.ok) {
+                            // Store user data in localStorage
+                            console.log('CONFIG object:', CONFIG);
+                            console.log('CONFIG.STORAGE:', CONFIG.STORAGE);
+                            
+                            localStorage.setItem(CONFIG.STORAGE.IS_LOGGED_IN, 'true');
+                            localStorage.setItem(CONFIG.STORAGE.ENROLLED_EMAIL, email);
+                            
+                            console.log('Login successful, storing data and redirecting...');
                             showMessage("Login successful!");
-                            setTimeout(() => {
-                                window.location.href = 'homepage.html';
-                            }, 1000);
+                            
+                            // Try immediate redirect first
+                            console.log('Attempting immediate redirect to Courses.html...');
+                            try {
+                                window.location.href = 'Courses.html';
+                            } catch (immediateRedirectError) {
+                                console.error('Immediate redirect failed:', immediateRedirectError);
+                                // Fallback to setTimeout redirect
+                                setTimeout(() => {
+                                    console.log('Fallback: Redirecting to Courses.html...');
+                                    try {
+                                        window.location.href = 'Courses.html';
+                                    } catch (redirectError) {
+                                        console.error('Redirect error:', redirectError);
+                                        // Final fallback redirect method
+                                        window.location.replace('Courses.html');
+                                    }
+                                }, 1000);
+                            }
                         } else {
+                            console.log('Login failed:', result.message);
                             showMessage(result.message, true);
                         }
                     } catch (error) {
+                        console.error('Login error:', error);
                         showMessage('Sign in failed. Please check your server.', true);
                     }
                 });
