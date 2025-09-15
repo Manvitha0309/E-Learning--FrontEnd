@@ -1,0 +1,127 @@
+{
+  "courseId": "uiux",
+  "moduleId": "module1",
+  "moduleTitle": "Introduction to Design",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What does UI stand for?",
+      "options": [
+        "User Interface",
+        "User Interaction",
+        "Universal Interface",
+        "User Integration"
+      ],
+      "correctAnswer": 0,
+      "explanation": "UI stands for User Interface, which refers to the visual elements and layout of a product that users interact with."
+    },
+    {
+      "id": 2,
+      "question": "What does UX stand for?",
+      "options": [
+        "User Experience",
+        "User Extension",
+        "Universal Experience",
+        "User Execution"
+      ],
+      "correctAnswer": 0,
+      "explanation": "UX stands for User Experience, which encompasses all aspects of a user's interaction with a product or service."
+    },
+    {
+      "id": 3,
+      "question": "What is user-centered design?",
+      "options": [
+        "Design focused on the designer's preferences",
+        "Design approach that prioritizes user needs and behaviors",
+        "Design that uses only user feedback",
+        "Design that ignores user input"
+      ],
+      "correctAnswer": 1,
+      "explanation": "User-centered design is an approach that focuses on understanding users' needs, behaviors, and goals throughout the design process."
+    },
+    {
+      "id": 4,
+      "question": "What is the design thinking process?",
+      "options": [
+        "A linear process with one step",
+        "A non-linear, iterative process with multiple stages",
+        "A process only for visual design",
+        "A process that ignores user research"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Design thinking is an iterative, non-linear process that typically includes stages like empathize, define, ideate, prototype, and test."
+    },
+    {
+      "id": 5,
+      "question": "What is wireframing?",
+      "options": [
+        "Creating final visual designs",
+        "Creating low-fidelity layouts showing structure and content",
+        "Writing code for websites",
+        "Taking photographs"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Wireframing is the process of creating low-fidelity layouts that show the basic structure, content, and functionality of a design."
+    },
+    {
+      "id": 6,
+      "question": "What is prototyping?",
+      "options": [
+        "Creating final products",
+        "Creating interactive models to test design concepts",
+        "Writing documentation",
+        "Taking user photos"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Prototyping involves creating interactive models or simulations of a product to test and validate design concepts before development."
+    },
+    {
+      "id": 7,
+      "question": "What is usability testing?",
+      "options": [
+        "Testing if a design looks good",
+        "Testing how easily users can accomplish tasks with a product",
+        "Testing the speed of a website",
+        "Testing the colors used in design"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Usability testing involves observing real users as they interact with a product to identify usability issues and areas for improvement."
+    },
+    {
+      "id": 8,
+      "question": "What is the purpose of user personas?",
+      "options": [
+        "To create fictional characters for stories",
+        "To represent target users and their characteristics",
+        "To design logos",
+        "To write code"
+      ],
+      "correctAnswer": 1,
+      "explanation": "User personas are fictional representations of target users that help designers understand user needs, goals, and behaviors."
+    },
+    {
+      "id": 9,
+      "question": "What is accessibility in design?",
+      "options": [
+        "Making designs look expensive",
+        "Designing products that can be used by people with disabilities",
+        "Making designs load faster",
+        "Using only modern design trends"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Accessibility in design ensures that products can be used by people with various abilities and disabilities."
+    },
+    {
+      "id": 10,
+      "question": "What is the difference between UI and UX?",
+      "options": [
+        "No difference",
+        "UI focuses on visual design, UX focuses on overall user experience",
+        "UI is for mobile, UX is for web",
+        "UI is more important than UX"
+      ],
+      "correctAnswer": 1,
+      "explanation": "UI focuses on the visual and interactive elements, while UX encompasses the entire user experience including usability, accessibility, and user satisfaction."
+    }
+  ]
+}

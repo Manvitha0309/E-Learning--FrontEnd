@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 1 Assignments</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="config.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
         body {
@@ -15,39 +16,112 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <nav class="bg-white shadow-md">
+    <nav class="bg-white shadow-md relative">
         <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Logo -->
             <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 md:w-10 md:h-10 text-blue-600">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
                 </svg>
-                <h1 class="text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
+                <h1 class="text-xl md:text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
             </div>
-            <div class="flex items-center space-x-4">
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-6">
                 <a href="Homepage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
                 <a href="Courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
                 <a href="Aboutpage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
-                <button id="signout-button" class="px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">Sign Out</button>
+                <button id="signout-button" class="px-4 md:px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">Sign Out</button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition duration-150">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Sidebar -->
+        <div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-64 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 md:hidden">
+            <div class="flex flex-col h-full">
+                <!-- Sidebar Header -->
+                <div class="flex items-center justify-between p-4 border-b">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
+                        </svg>
+                        <span class="ml-2 text-lg font-bold text-gray-800">EduVerse</span>
+                    </div>
+                    <button id="close-sidebar" class="p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition duration-150">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Sidebar Navigation -->
+                <nav class="flex-1 px-4 py-6 space-y-2">
+                    <a href="Homepage.html" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-150">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        Home
+                    </a>
+                    <a href="Courses.html" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-150">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                        Courses
+                    </a>
+                    <a href="Aboutpage.html" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-150">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        About
+                    </a>
+                </nav>
+
+                <!-- Sidebar Footer -->
+                <div class="p-4 border-t">
+                    <button id="mobile-signout-button"
+                        class="w-full flex items-center justify-center px-4 py-3 text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        Sign Out
+                    </button>
+                </div>
             </div>
         </div>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
     </nav>
 
-    <main class="flex-grow container mx-auto px-4 py-16">
-        <h2 id="assignment-title" class="text-4xl font-extrabold text-gray-900 text-center mb-12">Assignments</h2>
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-16">
+        <h2 id="assignment-title" class="text-2xl md:text-4xl font-extrabold text-gray-900 text-center mb-8 md:mb-12">Assignments</h2>
 
-        <div id="quiz-container" class="bg-white rounded-2xl shadow-lg p-8">
+        <div id="quiz-container" class="bg-white rounded-2xl shadow-lg p-4 md:p-8">
             <form id="quiz-form">
             </form>
-            <div id="results-container" class="mt-8 hidden text-center">
-                <p id="score-text" class="text-2xl font-bold text-gray-800 mb-4"></p>
-                <button id="try-again-button" class="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150">Try Again</button>
+            <div id="results-container" class="mt-8 hidden">
+                <div class="text-center mb-6">
+                    <p id="score-text" class="text-2xl font-bold text-gray-800 mb-4"></p>
+                    <button id="try-again-button" class="px-6 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150">Try Again</button>
+                </div>
+                
+                <div id="detailed-results" class="mt-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Detailed Results</h3>
+                    <div id="question-results" class="space-y-4"></div>
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="bg-gray-800 text-white py-8 mt-auto">
         <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 EduVerse. All rights reserved.</p>
+            <p>&copy; 2025 EduVerse. All rights reserved.</p>
         </div>
     </footer>
 
@@ -59,137 +133,100 @@
             const quizContainer = document.getElementById('quiz-container');
             const assignmentTitle = document.getElementById('assignment-title');
             const tryAgainButton = document.getElementById('try-again-button');
+            
+            // Mobile sidebar elements
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeSidebarButton = document.getElementById('close-sidebar');
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            const signoutButton = document.getElementById('signout-button');
+            const mobileSignoutButton = document.getElementById('mobile-signout-button');
 
-            const quizzes = {
-                webdev: [
-                    {
-                        question: "What does HTML stand for?",
-                        options: ["Hyper Text Markup Language", "High-level Text Management Language", "Hyperlink and Text Markup Language", "Home Tool Markup Language"],
-                        answer: "Hyper Text Markup Language"
-                    },
-                    {
-                        question: "Which of the following is used to add a heading in HTML?",
-                        options: ["<h>", "<h1>", "<head>", "<heading>"],
-                        answer: "<h1>"
-                    },
-                    {
-                        question: "What is the correct way to link an external stylesheet?",
-                        options: ["<style rel='stylesheet' href='style.css'>", "<link href='style.css'>", "<link rel='stylesheet' href='style.css'>", "<stylesheet>style.css</stylesheet>"],
-                        answer: "<link rel='stylesheet' href='style.css'>"
-                    },
-                    {
-                        question: "How do you select an element with id 'header' in CSS?",
-                        options: [".header", "#header", "header", "*header"],
-                        answer: "#header"
-                    },
-                    {
-                        question: "What is the primary function of JavaScript?",
-                        options: ["Styling web pages", "Creating database schemas", "Adding interactivity to web pages", "Managing server-side logic"],
-                        answer: "Adding interactivity to web pages"
-                    },
-                    {
-                        question: "Which HTML tag is used to define an internal stylesheet?",
-                        options: ["<script>", "<css>", "<style>", "<link>"],
-                        answer: "<style>"
-                    },
-                    {
-                        question: "What is the CSS 'box model'?",
-                        options: ["A model for creating 3D boxes", "A model for layout and spacing of elements", "A box for storing code", "A model for a responsive design"],
-                        answer: "A model for layout and spacing of elements"
-                    },
-                    {
-                        question: "How do you declare a variable in JavaScript?",
-                        options: ["var myVariable;", "v myVariable;", "variable myVariable;", "declare myVariable;"],
-                        answer: "var myVariable;"
-                    },
-                    {
-                        question: "Which property is used to change the background color?",
-                        options: ["color", "background-color", "bg-color", "background"],
-                        answer: "background-color"
-                    },
-                    {
-                        question: "What does the 'DOM' stand for?",
-                        options: ["Document Object Model", "Data Object Model", "Dynamic Order Model", "Digital Output Model"],
-                        answer: "Document Object Model"
-                    }
-                ],
-                cns: [
-                    {
-                        question: "Which of the following is a network topology?",
-                        options: ["Star", "Circle", "Square", "Line"],
-                        answer: "Star"
-                    },
-                    {
-                        question: "What is the primary purpose of a firewall?",
-                        options: ["To speed up a network connection", "To block unauthorized access to a network", "To store network data", "To manage network cables"],
-                        answer: "To block unauthorized access to a network"
-                    },
-                    {
-                        question: "What is the process of converting information into an unreadable format to prevent unauthorized access?",
-                        options: ["Hacking", "Cryptography", "Decoding", "Networking"],
-                        answer: "Cryptography"
-                    },
-                    {
-                        question: "A DDoS attack is a type of cyber attack. What does DDoS stand for?",
-                        options: ["Direct Denial of Service", "Distributed Denial of Service", "Dynamic Data on Server", "Distributed Data Operating System"],
-                        answer: "Distributed Denial of Service"
-                    },
-                    {
-                        question: "Which layer of the OSI model is responsible for routing data?",
-                        options: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"],
-                        answer: "Network Layer"
-                    },
-                    {
-                        question: "What is a 'Trojan' in the context of cyber security?",
-                        options: ["A type of network protocol", "A type of malicious software that disguises itself as legitimate software", "A type of firewall", "A secure network device"],
-                        answer: "A type of malicious software that disguises itself as legitimate software"
-                    },
-                    {
-                        question: "What is an IP address?",
-                        options: ["A unique identifier for a device on a network", "A programming language", "A type of network cable", "A web browser"],
-                        answer: "A unique identifier for a device on a network"
-                    },
-                    {
-                        question: "What is a 'phishing' attack?",
-                        options: ["An attack that uses a fishing rod", "An attack that tricks users into revealing personal information", "An attack that floods a network with traffic", "An attack that encrypts a user's files"],
-                        answer: "An attack that tricks users into revealing personal information"
-                    },
-                    {
-                        question: "What is the main purpose of an Intrusion Detection System (IDS)?",
-                        options: ["To block all network traffic", "To detect malicious activity and policy violations", "To manage user accounts", "To backup network data"],
-                        answer: "To detect malicious activity and policy violations"
-                    },
-                    {
-                        question: "Which of these is a common wireless network security protocol?",
-                        options: ["HTTP", "WEP", "FTP", "DNS"],
-                        answer: "WEP"
-                    }
-                ]
-            };
+            // Mobile sidebar functionality
+            function openSidebar() {
+                mobileSidebar.classList.remove('translate-x-full');
+                sidebarOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                mobileSidebar.classList.add('translate-x-full');
+                sidebarOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Event listeners for mobile sidebar
+            mobileMenuButton.addEventListener('click', openSidebar);
+            closeSidebarButton.addEventListener('click', closeSidebar);
+            sidebarOverlay.addEventListener('click', closeSidebar);
+
+            // Close sidebar when clicking on navigation links
+            const sidebarLinks = mobileSidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+
+            // Use centralized config
+            const backendUrl = CONFIG.BACKEND_URL;
             
             const urlParams = new URLSearchParams(window.location.search);
-            const courseId = urlParams.get('course');
-            const quizQuestions = quizzes[courseId] || quizzes.cns;
+            const courseId = urlParams.get('course') || CONFIG.APP.DEFAULT_COURSE;
+            const moduleId = urlParams.get('module') || CONFIG.APP.DEFAULT_MODULE;
+
+            let assignmentData = null;
+            let userEmail = localStorage.getItem(CONFIG.STORAGE.ENROLLED_EMAIL) || 'demo@example.com';
+            let userAnswers = [];
+
+            // Function to escape HTML characters
+            function escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // Load assignment data from backend
+            async function loadAssignment() {
+                try {
+                    const response = await fetch(getApiUrl(`${CONFIG.API.ASSIGNMENTS}/${courseId}/${moduleId}`));
+                    if (response.ok) {
+                        assignmentData = await response.json();
+                        assignmentTitle.textContent = `${assignmentData.moduleTitle} - Assignment`;
+                        renderQuiz();
+                    } else {
+                        console.error('Failed to load assignment');
+                        showError('Failed to load assignment. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error loading assignment:', error);
+                    showError('Error loading assignment. Please check your connection.');
+                }
+            }
 
             function renderQuiz() {
+                if (!assignmentData || !assignmentData.questions) {
+                    showError('No assignment data available.');
+                    return;
+                }
+
                 quizForm.innerHTML = '';
-                quizQuestions.forEach((q, index) => {
+                assignmentData.questions.forEach((q, index) => {
                     const questionDiv = document.createElement('div');
                     questionDiv.className = 'mb-6 p-4 border rounded-lg shadow-sm';
                     
                     const questionHeader = document.createElement('h3');
-                    questionHeader.className = 'text-xl font-bold text-gray-800 mb-4';
+                    questionHeader.className = 'text-lg md:text-xl font-bold text-gray-800 mb-4';
                     questionHeader.textContent = `${index + 1}. ${q.question}`;
                     questionDiv.appendChild(questionHeader);
 
-                    q.options.forEach(option => {
+                    q.options.forEach((option, optionIndex) => {
                         const optionLabel = document.createElement('label');
-                        optionLabel.className = 'block text-gray-700 mb-2 cursor-pointer';
+                        optionLabel.className = 'block text-gray-700 mb-2 cursor-pointer hover:bg-gray-50 p-2 rounded';
 
                         const optionInput = document.createElement('input');
                         optionInput.type = 'radio';
                         optionInput.name = `question-${index}`;
-                        optionInput.value = option;
+                        optionInput.value = optionIndex;
                         optionInput.className = 'mr-2';
 
                         optionLabel.appendChild(optionInput);
@@ -201,44 +238,186 @@
 
                 const submitButton = document.createElement('button');
                 submitButton.type = 'submit';
-                submitButton.className = 'w-full px-6 py-3 text-lg font-bold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition duration-150';
+                submitButton.className = 'w-full px-4 md:px-6 py-2 md:py-3 text-base md:text-lg font-bold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow-md transition duration-150';
                 submitButton.textContent = 'Submit Assignment';
                 quizForm.appendChild(submitButton);
             }
 
-            function calculateScore(e) {
-                e.preventDefault();
-                let score = 0;
-                let totalQuestions = quizQuestions.length;
+            function showError(message) {
+                quizForm.innerHTML = `
+                    <div class="text-center p-8">
+                        <div class="text-red-600 text-lg font-semibold mb-4">${message}</div>
+                        <button onclick="location.reload()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Retry
+                        </button>
+                    </div>
+                `;
+            }
 
-                quizQuestions.forEach((q, index) => {
+            async function calculateScore(e) {
+                e.preventDefault();
+                if (!assignmentData || !assignmentData.questions) {
+                    showError('No assignment data available.');
+                    return;
+                }
+
+                let score = 0;
+                let totalQuestions = assignmentData.questions.length;
+                userAnswers = []; // Reset user answers
+
+                assignmentData.questions.forEach((q, index) => {
                     const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
-                    if (selectedOption && selectedOption.value === q.answer) {
+                    let selectedAnswerIndex = -1;
+                    
+                    if (selectedOption) {
+                        const parsedValue = parseInt(selectedOption.value);
+                        if (!isNaN(parsedValue) && parsedValue >= 0 && parsedValue < q.options.length) {
+                            selectedAnswerIndex = parsedValue;
+                        }
+                    }
+                    
+                    userAnswers.push(selectedAnswerIndex);
+                    
+                    if (selectedAnswerIndex === q.correctAnswer) {
                         score++;
                     }
                 });
 
+                // Submit score to backend
+                try {
+                    const response = await fetch(getApiUrl(CONFIG.API.SUBMIT_SCORE), {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: userEmail,
+                            courseId: courseId,
+                            moduleId: moduleId,
+                            score: score,
+                            totalQuestions: totalQuestions,
+                            answers: userAnswers
+                        })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        showResults(score, totalQuestions, result.scoreData.percentage);
+                    } else {
+                        console.error('Failed to submit score');
+                        showResults(score, totalQuestions, Math.round((score / totalQuestions) * 100));
+                    }
+                } catch (error) {
+                    console.error('Error submitting score:', error);
+                    showResults(score, totalQuestions, Math.round((score / totalQuestions) * 100));
+                }
+            }
+
+            function showResults(score, totalQuestions, percentage) {
                 quizForm.classList.add('hidden');
                 resultsContainer.classList.remove('hidden');
-                scoreText.textContent = `Your score is ${score} out of ${totalQuestions}!`;
+                
+                let message = '';
+                let colorClass = '';
+                
+                if (percentage >= 80) {
+                    message = 'Excellent work!';
+                    colorClass = 'text-green-600';
+                } else if (percentage >= 60) {
+                    message = 'Good job!';
+                    colorClass = 'text-blue-600';
+                } else {
+                    message = 'Keep studying!';
+                    colorClass = 'text-orange-600';
+                }
+                
+                scoreText.innerHTML = `
+                    <div class="${colorClass}">
+                        <div class="text-3xl font-bold mb-2">${message}</div>
+                        <div class="text-xl">Your score: ${score} out of ${totalQuestions}</div>
+                        <div class="text-lg">Percentage: ${percentage}%</div>
+                    </div>
+                `;
+                
+                // Show detailed results
+                showDetailedResults();
+            }
+
+            function showDetailedResults() {
+                const questionResults = document.getElementById('question-results');
+                questionResults.innerHTML = '';
+                
+                assignmentData.questions.forEach((question, index) => {
+                    const userAnswer = userAnswers[index];
+                    const isCorrect = userAnswer === question.correctAnswer;
+                    let userAnswerText = 'Not answered';
+                    if (userAnswer >= 0 && userAnswer < question.options.length) {
+                        userAnswerText = question.options[userAnswer] || 'Invalid answer';
+                    }
+                    
+                    // Additional safety check
+                    if (!userAnswerText || userAnswerText.trim() === '') {
+                        userAnswerText = 'Not answered';
+                    }
+                    const correctAnswerText = question.options[question.correctAnswer];
+                    
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = `p-4 rounded-lg border-l-4 ${
+                        isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'
+                    }`;
+                    
+                    resultDiv.innerHTML = `
+                        <div class="flex items-start justify-between mb-2">
+                            <h4 class="font-semibold text-gray-800">Question ${index + 1}</h4>
+                            <span class="px-2 py-1 rounded text-sm font-medium ${
+                                isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                            }">
+                                ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+                            </span>
+                        </div>
+                        <p class="text-gray-700 mb-3">${question.question}</p>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <span class="font-medium text-gray-600 w-24">Your answer:</span>
+                                <span class="text-gray-800">${escapeHtml(userAnswerText)}</span>
+                            </div>
+                            ${!isCorrect ? `
+                                <div class="flex items-center">
+                                    <span class="font-medium text-gray-600 w-24">Correct answer:</span>
+                                    <span class="text-green-700 font-medium">${escapeHtml(correctAnswerText)}</span>
+                                </div>
+                            ` : ''}
+                            <div class="mt-3 p-3 bg-blue-50 rounded">
+                                <span class="font-medium text-blue-800">Explanation:</span>
+                                <p class="text-blue-700 mt-1">${escapeHtml(question.explanation)}</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    questionResults.appendChild(resultDiv);
+                });
             }
 
             quizForm.addEventListener('submit', calculateScore);
             tryAgainButton.addEventListener('click', () => {
                 quizForm.classList.remove('hidden');
                 resultsContainer.classList.add('hidden');
+                userAnswers = []; // Reset user answers
                 renderQuiz();
             });
 
-            // **HIGHLIGHTED CHANGE: Add signout functionality**
-            const signoutButton = document.getElementById('signout-button');
-            signoutButton.addEventListener('click', () => {
-                localStorage.setItem('isLoggedIn', 'false');
-                localStorage.removeItem('enrolledEmail');
-                window.location.href = "index.html"; // Redirect to the login page
-            });
+            // Sign out functionality for both desktop and mobile
+            function handleSignOut() {
+                localStorage.setItem(CONFIG.STORAGE.IS_LOGGED_IN, 'false');
+                localStorage.removeItem(CONFIG.STORAGE.ENROLLED_EMAIL);
+                window.location.href = "index.html";
+            }
 
-            renderQuiz();
+            signoutButton.addEventListener('click', handleSignOut);
+            mobileSignoutButton.addEventListener('click', handleSignOut);
+
+            // Load assignment when page loads
+            loadAssignment();
         });
     </script>
 </body>

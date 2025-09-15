@@ -15,36 +15,102 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <nav class="bg-white shadow-md">
+  <nav class="bg-white shadow-md relative">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <!-- Logo -->
       <div class="flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-          stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-blue-600">
+          stroke-width="1.5" stroke="currentColor" class="w-8 h-8 md:w-10 md:h-10 text-blue-600">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
         </svg>
-        <h1 class="text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
+        <h1 class="text-xl md:text-3xl font-bold ml-2 text-gray-800">EduVerse</h1>
       </div>
-      <div class="flex items-center space-x-4">
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
         <a href="HomePage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Home</a>
         <a href="Courses.html" class="text-gray-600 hover:text-blue-600 transition duration-150">Courses</a>
         <a href="Aboutpage.html" class="text-gray-600 hover:text-blue-600 transition duration-150">About</a>
         <button id="signout-button"
-          class="px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">
+          class="px-4 md:px-6 py-2 border border-transparent text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">
           Sign Out
         </button>
       </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition duration-150">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </div>
+
+    <!-- Mobile Sidebar -->
+    <div id="mobile-sidebar" class="fixed inset-y-0 right-0 w-64 bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 md:hidden">
+      <div class="flex flex-col h-full">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between p-4 border-b">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-blue-600">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
+            </svg>
+            <span class="ml-2 text-lg font-bold text-gray-800">EduVerse</span>
+          </div>
+          <button id="close-sidebar" class="p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-gray-100 transition duration-150">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+          <a href="HomePage.html" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-150">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            Home
+          </a>
+          <a href="Courses.html" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-150">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+            Courses
+          </a>
+          <a href="Aboutpage.html" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-150">
+            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            About
+          </a>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t">
+          <button id="mobile-signout-button"
+            class="w-full flex items-center justify-center px-4 py-3 text-white font-medium bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition duration-150">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
   </nav>
 
-  <main class="flex-grow container mx-auto px-4 py-16">
-    <h2 id="course-title" class="text-4xl font-extrabold text-gray-900 text-center mb-12">Contents of the Course</h2>
-    <div id="course-contents" class="space-y-8">
+  <main class="flex-grow container mx-auto px-4 py-8 md:py-16">
+    <h2 id="course-title" class="text-2xl md:text-4xl font-extrabold text-gray-900 text-center mb-8 md:mb-12">Contents of the Course</h2>
+    <div id="course-contents" class="space-y-6 md:space-y-8">
       </div>
 
-    <div class="text-center mt-12">
+    <div class="text-center mt-8 md:mt-12">
       <a href="Courses.html"
-        class="inline-block px-8 py-3 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transition duration-150">
+        class="inline-block px-6 md:px-8 py-2 md:py-3 text-base md:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transition duration-150">
         Back to Courses
       </a>
     </div>
@@ -59,8 +125,37 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const signoutButton = document.getElementById('signout-button');
+      const mobileSignoutButton = document.getElementById('mobile-signout-button');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const closeSidebarButton = document.getElementById('close-sidebar');
+      const mobileSidebar = document.getElementById('mobile-sidebar');
+      const sidebarOverlay = document.getElementById('sidebar-overlay');
       const courseTitle = document.getElementById('course-title');
       const courseContents = document.getElementById('course-contents');
+
+      // Mobile sidebar functionality
+      function openSidebar() {
+        mobileSidebar.classList.remove('translate-x-full');
+        sidebarOverlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSidebar() {
+        mobileSidebar.classList.add('translate-x-full');
+        sidebarOverlay.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Event listeners for mobile sidebar
+      mobileMenuButton.addEventListener('click', openSidebar);
+      closeSidebarButton.addEventListener('click', closeSidebar);
+      sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // Close sidebar when clicking on navigation links
+      const sidebarLinks = mobileSidebar.querySelectorAll('a');
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', closeSidebar);
+      });
 
       // Course data storage
       const courses = {
@@ -70,22 +165,22 @@
             {
               title: "Module 1: HTML Basics",
               topics: ["Introduction to HTML", "HTML Structure", "Text Formatting and Links", "Images and Tables"],
-              assignmentLink: "Assignments.html?course=datascience"
+              assignmentLink: "Assignments.html?course=webdev&module=module1"
             },
             {
               title: "Module 2: CSS Fundamentals",
               topics: ["Introduction to CSS", "Selectors and Properties", "Box Model", "Flexbox and Grid Layout"],
-              assignmentLink: "#"
+              assignmentLink: "Assignments.html?course=webdev&module=module2"
             },
             {
               title: "Module 3: JavaScript Essentials",
               topics: ["Variables and Data Types", "Control Structures (if/else, loops)", "Functions and Events", "DOM Manipulation"],
-              assignmentLink: "#"
+              assignmentLink: "Assignments.html?course=webdev&module=module3"
             },
             {
               title: "Module 4: Building a Website",
               topics: ["Project Setup", "Creating a Multi-Page Website", "Responsive Design", "Deployment Basics"],
-              assignmentLink: "#"
+              assignmentLink: "Assignments.html?course=webdev&module=module4"
             }
           ]
         },
@@ -95,12 +190,12 @@
             {
               title: "Module 1: Foundations",
               topics: ["What is Data Science?", "The Data Science Lifecycle", "Python for Data Science", "Jupyter Notebooks"],
-              assignmentLink: "Assignments.html?course=datascience"
+              assignmentLink: "Assignments.html?course=datascience&module=module1"
             },
             {
               title: "Module 2: Data Manipulation",
               topics: ["Using Pandas for DataFrames", "Data Cleaning and Preparation", "Working with CSV and Excel Files", "Merging and Joining Datasets"],
-              assignmentLink: "#"
+              assignmentLink: "Assignments.html?course=datascience&module=module2"
             },
             {
               title: "Module 3: Data Visualization",
@@ -120,7 +215,7 @@
             {
               title: "Module 1: Introduction to Design",
               topics: ["What is UI/UX?", "User-Centered Design Principles", "Design Thinking Process", "Wireframing and Prototyping"],
-              assignmentLink: "Assignments.html?course=uiux"
+              assignmentLink: "Assignments.html?course=uiux&module=module1"
             },
             {
               title: "Module 2: User Research",
@@ -145,7 +240,7 @@
             {
               title: "Module 1: Introduction to Mobile",
               topics: ["Native vs. Cross-Platform Development", "Introduction to Swift and Kotlin", "Basics of React Native", "Setting up Your Development Environment"],
-              assignmentLink: "Assignments.html?course=mobiledev"
+              assignmentLink: "Assignments.html?course=mobiledev&module=module1"
             },
             {
               title: "Module 2: Building UI",
@@ -170,7 +265,7 @@
             {
               title: "Module 1: SEO and SEM",
               topics: ["On-Page and Off-Page SEO", "Keyword Research", "Introduction to Google Ads", "Managing PPC Campaigns"],
-              assignmentLink: "Assignments.html?course=digitalmarketing"
+              assignmentLink: "Assignments.html?course=digitalmarketing&module=module1"
             },
             {
               title: "Module 2: Social Media Marketing",
@@ -195,7 +290,7 @@
             {
               title: "Module 1: Introduction to CNS",
               topics: ["What are Computer Networks?", "Basic Network Topologies", "Introduction to Cyber Security", "Why Network Security is Important"],
-              assignmentLink: "Assignments.html?course=cns"
+              assignmentLink: "Assignments.html?course=cns&module=module1"
             },
             {
               title: "Module 2: Network Security Fundamentals",
@@ -228,20 +323,22 @@
         selectedCourse.modules.forEach((module, index) => {
           const moduleDiv = document.createElement('div');
           // Add flexbox classes to align content and button
-          moduleDiv.className = 'bg-white rounded-2xl shadow-lg p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0';
+          moduleDiv.className = 'bg-white rounded-2xl shadow-lg p-4 md:p-6 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0';
           
           let moduleContent = `
             <div class="flex-grow">
-              <h3 class="text-2xl font-bold text-gray-800 mb-2">${module.title}</h3>
-              <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">${module.title}</h3>
+              <ul class="list-disc list-inside text-sm md:text-base text-gray-600 space-y-1 md:space-y-2">
                 ${module.topics.map(topic => `<li>${topic}</li>`).join('')}
               </ul>
             </div>
           `;
           
-          // Add the Assignments button only for the first module (index 0)
-          if (index === 0) {
-            moduleContent += `<a href="${module.assignmentLink}" class="w-full sm:w-auto mt-4 sm:mt-0 px-6 py-2 text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150 text-center">Assignments</a>`;
+          // Add the Assignments button for all modules that have assignment links
+          if (module.assignmentLink && module.assignmentLink !== "#") {
+            moduleContent += `<a href="${module.assignmentLink}" class="w-full lg:w-auto mt-4 lg:mt-0 px-4 md:px-6 py-2 text-sm md:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition duration-150 text-center">Assignments</a>`;
+          } else {
+            moduleContent += `<span class="w-full lg:w-auto mt-4 lg:mt-0 px-4 md:px-6 py-2 text-sm md:text-lg font-bold text-gray-400 bg-gray-200 rounded-lg shadow-md text-center">Coming Soon</span>`;
           }
           
           moduleDiv.innerHTML = moduleContent;
@@ -249,11 +346,15 @@
         });
       }
 
-      signoutButton.addEventListener('click', () => {
+      // Sign out functionality for both desktop and mobile
+      function handleSignOut() {
         localStorage.setItem('isLoggedIn', 'false');
         localStorage.removeItem('enrolledEmail');
         window.location.href = "index.html";
-      });
+      }
+
+      signoutButton.addEventListener('click', handleSignOut);
+      mobileSignoutButton.addEventListener('click', handleSignOut);
     });
   </script>
 

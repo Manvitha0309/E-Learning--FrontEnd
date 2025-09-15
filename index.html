@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Learning - Sign In & Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="config.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
         body {
@@ -25,21 +26,21 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-lg p-8 space-y-8 bg-white rounded-2xl shadow-xl">
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-lg p-4 md:p-8 space-y-6 md:space-y-8 bg-white rounded-2xl shadow-xl">
         <div class="text-center">
             <div class="flex items-center justify-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-blue-600">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25m9 0h-3.375m0 0a3.625 3.625 0 11-7.25 0m7.25 0a3.625 3.625 0 00-7.25 0m7.25 0h.375a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375M12 21v-8.25m-4.5 0H3.375m0 0a3.625 3.625 0 013.625-3.625h1.5m-4.5 1.5l2.25 2.25m-2.25-2.25l-2.25-2.25m4.5 2.25l-2.25 2.25m2.25-2.25l-2.25-2.25M12 21v-8.25m-4.5 0a3.625 3.625 0 01-3.625-3.625h1.5m4.5-1.5V6.75m0 0a3.625 3.625 0 00-7.25 0m7.25 0a3.625 3.625 0 013.625 3.625v1.5m-4.5-1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m-4.5 1.5h3.375m-3.375 0V6.75m4.5 1.5h3.375m-3.375 0V6.75" />
                 </svg>
-                <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 ml-2">EduVerse</h1>
+                <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight text-gray-900 ml-2">EduVerse</h1>
             </div>
             <p class="mt-2 text-gray-500">Learn. Grow. Succeed.</p>
         </div>
 
         <!-- Sign In Form -->
         <div id="signin-form" class="space-y-6">
-            <h2 class="text-3xl font-bold text-center text-gray-800">Sign In</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Sign In</h2>
             <form id="signinForm" action="#" method="POST" class="space-y-4">
                 <div>
                     <label for="email-signin" class="block text-sm font-medium text-gray-700">Email address</label>
@@ -71,7 +72,7 @@
 
         <!-- Sign Up Form (hidden by default) -->
         <div id="signup-form" class="space-y-6 hidden">
-            <h2 class="text-3xl font-bold text-center text-gray-800">Sign Up</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Sign Up</h2>
             <form id="signupForm" action="#" method="POST" class="space-y-4">
                  <div>
                     <label for="name-signup" class="block text-sm font-medium text-gray-700">Full Name</label>
@@ -160,7 +161,9 @@
             const finalSignupBtn = document.getElementById('final-signup');
             const userData = {};
 
-            const backendUrl = "https://e-learning-backend-hywc.onrender.com"; // REPLACE WITH YOUR PUBLIC BACKEND URL
+            // Use centralized config
+            const backendUrl = CONFIG.BACKEND_URL;
+
 
             // Function to show a temporary message
             function showMessage(text, isError = false) {
@@ -253,7 +256,7 @@
                     }
                     
                     try {
-                        const response = await fetch(`${backendUrl}/api/signup`, {
+                        const response = await fetch(getApiUrl(CONFIG.API.SIGNUP), {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -287,7 +290,7 @@
                     const password = document.getElementById('password-signin').value;
                     
                     try {
-                        const response = await fetch(`${backendUrl}/api/signin`, {
+                        const response = await fetch(getApiUrl(CONFIG.API.SIGNIN), {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
