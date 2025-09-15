@@ -9,7 +9,7 @@
     <script>
         // Hardcoded configuration to avoid config.js loading issues
         const CONFIG = {
-            BACKEND_URL: "http://localhost:10000",
+            BACKEND_URL: "https://e-learning-backend-hywc.onrender.com",
             API: {
                 GET_SECURITY_CODE: "/api/get-security-code",
                 VERIFY_SECURITY_CODE: "/api/verify-security-code"
@@ -462,7 +462,7 @@
 
                 try {
                     const apiUrl = CONFIG.BACKEND_URL + CONFIG.API.GET_SECURITY_CODE;
-                    const response = await fetch('http://localhost:10000/api/get-security-code', {
+                    const response = await fetch('https://e-learning-backend-hywc.onrender.com/api/get-security-code', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
