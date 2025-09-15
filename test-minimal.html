@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-div { 
+            border: 2px solid #ccc; 
+            padding: 10px; 
+            margin: 10px 0; 
+            min-height: 30px;
+            background: #f9f9f9;
+        }
+        .test-button { 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px;
+            cursor: pointer;
+        }
+        .test-button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Minimal Test Page</h1>
+    <p>This page has NO forms, NO inputs, NO buttons - just divs and JavaScript.</p>
+    
+    <div class="test-div" id="email-div">
+        <div contenteditable="true" id="email-input">Enter email here</div>
+    </div>
+    
+    <div class="test-button" id="test-btn">Click Me (No Reload)</div>
+    
+    <div id="result">Result will appear here</div>
+
+    <script>
+        console.log('🚀 Page loaded - JavaScript is running');
+        
+        const emailInput = document.getElementById('email-input');
+        const testBtn = document.getElementById('test-btn');
+        const result = document.getElementById('result');
+        
+        let clickCount = 0;
+        
+        testBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            clickCount++;
+            const email = emailInput.textContent;
+            
+            console.log('🖱️ Button clicked! Count:', clickCount);
+            console.log('📧 Email value:', email);
+            
+            result.innerHTML = `
+                <p>✅ Button clicked ${clickCount} times</p>
+                <p>📧 Email: ${email}</p>
+                <p>⏰ Time: ${new Date().toLocaleTimeString()}</p>
+            `;
+            
+            return false;
+        });
+        
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                
+                console.log('⌨️ Enter pressed in email field');
+                testBtn.click();
+                
+                return false;
+            }
+        });
+        
+        // Prevent any form submission
+        document.addEventListener('submit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🚫 Form submission prevented');
+            return false;
+        });
+        
+        // Log when page is about to unload
+        window.addEventListener('beforeunload', function(e) {
+            console.log('⚠️ Page is about to reload/unload!');
+        });
+        
+        console.log('✅ All event listeners attached');
+    </script>
+</body>
+</html>

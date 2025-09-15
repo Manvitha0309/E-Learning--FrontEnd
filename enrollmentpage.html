@@ -1,148 +1,468 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Enrollment</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="config.js"></script>
+    <script>
+        // Hardcoded configuration to avoid config.js loading issues
+        const CONFIG = {
+            BACKEND_URL: "http://localhost:10000",
+            API: {
+                GET_SECURITY_CODE: "/api/get-security-code",
+                VERIFY_SECURITY_CODE: "/api/verify-security-code"
+            },
+            STORAGE: {
+                IS_LOGGED_IN: "isLoggedIn",
+                ENROLLED_EMAIL: "enrolledEmail"
+            }
+        };
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f3f4f6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .enrollment-container {
+            width: 100%;
+            max-width: 440px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .input-field {
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(90deg, #4338ca 0%, #6d28d9 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #10b981;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        [contenteditable]:empty:before {
+            content: attr(data-placeholder);
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        [contenteditable]:focus:before {
+            content: none;
+        }
+
+        [contenteditable] {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        [contenteditable] br {
+            display: none;
+        }
+
+        [contenteditable] * {
+            display: inline;
+        }
+
+        .btn-back {
+            background: #f3f4f6;
+            color: #4b5563;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: #e5e7eb;
+            transform: translateY(-2px);
+        }
+
+        .security-code {
+            letter-spacing: 8px;
+            font-size: 24px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .step-transition {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .hidden-step {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .visible-step {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+            position: relative;
+        }
+
+        .success-checkmark {
+            color: #10b981;
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-5px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(5px);
+            }
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
 
-    <div class="w-full max-w-lg p-4 md:p-8 space-y-6 md:space-y-8 bg-white rounded-2xl shadow-xl">
-        <div class="text-center">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">Welcome to The Course</h1>
-            <p class="mt-2 text-sm md:text-base text-gray-500">To enroll, please enter the security code.</p>
+<body>
+    <div class="enrollment-container">
+        <div class="header">
+            <h1 class="text-2xl font-bold">Welcome to The Course</h1>
+            <p class="mt-2 opacity-90">Enroll now to start your learning journey</p>
         </div>
 
-        <!-- Step 1: Email Input -->
-        <div id="email-step" class="space-y-6">
-            <div class="relative">
-                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                <input id="email" name="email" type="email" autocomplete="email" required
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        <div class="content">
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
             </div>
 
-            <div class="flex justify-center">
-                <button type="button" id="get-code-button"
-                    class="w-full sm:w-auto flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-base md:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 disabled:opacity-50 disabled:cursor-not-allowed">
-                    Get Security Code
-                </button>
+            <div id="main-container">
+                <div id="email-section" class="visible-step">
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <div id="email-input" contenteditable="true"
+                            class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none min-h-[48px]"
+                            data-placeholder="Enter your email address"></div>
+                        <p id="email-error" class="mt-1 text-sm text-red-600 hidden">Please enter a valid email address</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <div id="get-code-button"
+                            class="btn-primary w-full py-3 px-4 rounded-lg shadow-sm text-white font-semibold flex items-center justify-center cursor-pointer">
+                            Get Security Code
+                        </div>
+                    </div>
+                </div>
+
+                <div id="code-section" class="hidden-step">
+                    <div class="text-center mb-6">
+                        <h2 class="text-xl font-bold text-gray-800">Enter Security Code</h2>
+                        <p class="mt-2 text-gray-600">We've sent a 6-digit code to your email</p>
+                        <p id="email-display" class="mt-1 text-sm font-medium text-indigo-600"></p>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Security Code</label>
+                        <div id="security-code-input" contenteditable="true"
+                            class="security-code input-field w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none min-h-[48px] text-center text-2xl font-mono"
+                            data-placeholder="000000"></div>
+                        <p id="code-error" class="mt-1 text-sm text-red-600 hidden">Please enter a valid 6-digit code</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <div id="back-to-email-button"
+                            class="btn-back flex-1 py-3 px-4 rounded-lg shadow-sm font-semibold cursor-pointer text-center">
+                            Back
+                        </div>
+                        <div id="submit-code-button"
+                            class="btn-secondary flex-1 py-3 px-4 rounded-lg shadow-sm text-white font-semibold flex items-center justify-center cursor-pointer">
+                            Verify & Enroll
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div id="success-step" class="step-transition hidden-step text-center py-8">
+                <div class="success-checkmark">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mt-4">Enrollment Successful!</h2>
+                <p class="mt-2 text-gray-600">You're being redirected to the course content</p>
+                <div class="mt-6">
+                    <div class="loader mx-auto"></div>
+                </div>
+            </div>
+
+            <div id="message-box" class="mt-6 text-center py-3 px-4 rounded-lg hidden"></div>
         </div>
-
-        <!-- Step 2: Security Code Input (hidden initially) -->
-        <div id="code-step" class="space-y-6 hidden">
-            <div class="text-center">
-                <h2 class="text-xl md:text-2xl font-bold text-gray-800">Enter Security Code</h2>
-                <p class="mt-2 text-sm md:text-base text-gray-500">We've sent a 6-digit code to your email</p>
-            </div>
-
-            <div class="relative">
-                <label for="security-code" class="block text-sm font-medium text-gray-700">Security Code</label>
-                <input id="security-code" name="security-code" type="text" autocomplete="off" required maxlength="6"
-                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-2xl tracking-widest">
-            </div>
-
-            <div class="flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0 sm:space-x-4">
-                <button type="button" id="back-to-email-button"
-                    class="w-full sm:w-auto flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-base md:text-lg font-bold text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150">
-                    ← Back to Email
-                </button>
-                <button type="button" id="submit-code-button"
-                    class="w-full sm:w-auto flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-base md:text-lg font-bold text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150">
-                    Submit Code
-                </button>
-            </div>
-        </div>
-
-        <div id="message-box" class="hidden text-center py-2 px-4 rounded-lg"></div>
     </div>
 
     <script>
+        // Override ALL browser default behaviors
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Page loaded - Overriding browser behaviors');
+            
+            // Override form submission globally
+            document.addEventListener('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                console.log('🚫 Form submission blocked');
+                return false;
+            });
+            
+            // Override all link clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    console.log('🚫 Link click blocked');
+                    return false;
+                }
+            });
+            
+            // Override page unload (but allow intentional redirects)
+            window.addEventListener('beforeunload', function(e) {
+                if (allowRedirect) {
+                    console.log('✅ Allowing intentional redirect');
+                    return;
+                }
+                console.log('⚠️ Page unload detected - this should not happen!');
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            });
+            
+            // Override all key events globally
+            document.addEventListener('keydown', function(e) {
+                // Block F5, Ctrl+R, etc.
+                if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    console.log('🚫 Page refresh blocked');
+                    return false;
+                }
+            });
+            
+            // Override context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                return false;
+            });
+            
+            // Override drag and drop
+            document.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                return false;
+            });
+            
+            document.addEventListener('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                return false;
+            });
+        });
+        
+        // Global variable for allowing redirects
+        let allowRedirect = false;
+        
         document.addEventListener('DOMContentLoaded', () => {
+            // Elements
+            const mainContainer = document.getElementById('main-container');
+            const successStep = document.getElementById('success-step');
+            const emailSection = document.getElementById('email-section');
+            const codeSection = document.getElementById('code-section');
+            const emailInput = document.getElementById('email-input');
+            const securityCodeInput = document.getElementById('security-code-input');
             const getCodeButton = document.getElementById('get-code-button');
             const submitCodeButton = document.getElementById('submit-code-button');
             const backToEmailButton = document.getElementById('back-to-email-button');
-            const emailStep = document.getElementById('email-step');
-            const codeStep = document.getElementById('code-step');
-            const emailInput = document.getElementById('email');
-            const securityCodeInput = document.getElementById('security-code');
             const messageBox = document.getElementById('message-box');
-            const urlParams = new URLSearchParams(window.location.search);
-            const courseId = urlParams.get('course');
-            // Use centralized config
-            const backendUrl = CONFIG.BACKEND_URL;
+            const emailDisplay = document.getElementById('email-display');
+            const emailError = document.getElementById('email-error');
+            const codeError = document.getElementById('code-error');
+            const progressFill = document.getElementById('progress-fill');
 
-            // Debug: Check if all elements are found
-            console.log('Elements found:', {
-                getCodeButton: !!getCodeButton,
-                submitCodeButton: !!submitCodeButton,
-                backToEmailButton: !!backToEmailButton,
-                emailStep: !!emailStep,
-                codeStep: !!codeStep,
-                emailInput: !!emailInput,
-                securityCodeInput: !!securityCodeInput,
-                messageBox: !!messageBox
-            });
+            // State
+            let currentStep = 1;
+            const totalSteps = 3;
+            let isEmailStep = true;
 
-            // Test step transition function removed
-
-            // Test transition button removed
-
-            // Test functions removed - using direct approach now
-
-            function showMessage(text, isError = false) {
-                messageBox.textContent = text;
-                messageBox.classList.remove('hidden');
-                if (isError) {
-                    messageBox.style.backgroundColor = '#fee2e2';
-                    messageBox.style.color = '#991b1b';
-                    messageBox.style.border = '1px solid #fca5a5';
-                } else {
-                    messageBox.style.backgroundColor = '#d1fae5';
-                    messageBox.style.color = '#065f4d';
-                    messageBox.style.border = '1px solid #a7f3d0';
-                }
+            // Helper functions for contenteditable
+            function getContenteditableValue(element) {
+                return element.textContent.trim();
             }
 
-            // Use a simple function approach instead of event listener
-            getCodeButton.onclick = function() {
-                handleGetCode();
-            };
+            function setContenteditableValue(element, value) {
+                element.textContent = value;
+            }
 
-            async function handleGetCode() {
-                console.log('🔘 Get Code button clicked');
-                
-                const email = emailInput.value;
-                if (!email) {
-                    showMessage('Please enter your email.', true);
+            function clearContenteditable(element) {
+                element.textContent = '';
+            }
+
+            // Update progress bar
+            function updateProgress() {
+                progressFill.style.width = `${(currentStep / totalSteps) * 100}%`;
+            }
+
+            // Show message function
+            function showMessage(text, isError = false) {
+                messageBox.textContent = text;
+                messageBox.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+                messageBox.classList.add(isError ? 'bg-red-100' : 'bg-green-100', isError ? 'text-red-700' : 'text-green-700');
+                setTimeout(() => messageBox.classList.add('hidden'), 5000);
+            }
+
+            // Validate email
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            // Transition between steps
+            function goToStep(step) {
+                console.log('🔄 Going to step:', step);
+                if (step === 1) {
+                    isEmailStep = true;
+                    emailSection.classList.remove('hidden-step');
+                    emailSection.classList.add('visible-step');
+                    codeSection.classList.add('hidden-step');
+                    codeSection.classList.remove('visible-step');
+                    currentStep = 1;
+                    emailInput.focus();
+                } else if (step === 2) {
+                    isEmailStep = false;
+                    emailSection.classList.add('hidden-step');
+                    emailSection.classList.remove('visible-step');
+                    codeSection.classList.remove('hidden-step');
+                    codeSection.classList.add('visible-step');
+                    currentStep = 2;
+                    securityCodeInput.focus();
+                } else if (step === 3) {
+                    console.log('🎉 Showing success step');
+                    mainContainer.classList.add('hidden');
+                    successStep.classList.remove('hidden-step');
+                    successStep.classList.add('visible-step');
+                    currentStep = 3;
+                }
+                updateProgress();
+                console.log('✅ Step transition completed, current step:', currentStep);
+            }
+
+            // Get security code
+            async function handleGetCode(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const email = getContenteditableValue(emailInput);
+                if (!email || !validateEmail(email)) {
+                    emailError.classList.remove('hidden');
+                    emailInput.classList.add('shake');
+                    setTimeout(() => emailInput.classList.remove('shake'), 500);
                     return;
                 }
 
-                // Show loading state
-                const originalText = getCodeButton.innerHTML;
-                getCodeButton.disabled = true;
-                getCodeButton.innerHTML = `
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Sending...
-                `;
+                emailError.classList.add('hidden');
+                getCodeButton.innerHTML = '<div class="loader"></div> Sending...';
+                getCodeButton.setAttribute('disabled', 'true');
 
                 try {
-                    const apiUrl = getApiUrl(CONFIG.API.GET_SECURITY_CODE);
-                    console.log('🚀 Making request to:', apiUrl);
-                    
-                    const response = await fetch(apiUrl, {
+                    const apiUrl = CONFIG.BACKEND_URL + CONFIG.API.GET_SECURITY_CODE;
+                    const response = await fetch('http://localhost:10000/api/get-security-code', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -150,111 +470,196 @@
                         body: JSON.stringify({ email })
                     });
 
-                    console.log('📥 Response received:', response.status);
-                    const result = await response.json();
-                    console.log('📊 Result:', result);
-                    
-                    if (response.ok) {
-                        showMessage(result.message);
-                        emailStep.classList.add('hidden');
-                        codeStep.classList.remove('hidden');
-                        setTimeout(() => {
-                            securityCodeInput.focus();
-                        }, 100);
-                    } else {
-                        showMessage(result.message, true);
-                        getCodeButton.disabled = false;
-                        getCodeButton.innerHTML = originalText;
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
+
+                    await response.json();
+                    showMessage('Security code sent to your email!');
+                    emailDisplay.textContent = email;
+                    clearContenteditable(securityCodeInput);
+                    goToStep(2);
                 } catch (error) {
-                    console.error('❌ Error:', error);
-                    showMessage('Failed to connect to the server.', true);
-                    getCodeButton.disabled = false;
-                    getCodeButton.innerHTML = originalText;
+                    console.error('Error sending code:', error);
+                    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                        showMessage('CORS error: Please ensure your backend allows cross-origin requests.', true);
+                    } else if (error.message.includes('HTTP error')) {
+                        showMessage(`Server error (${error.message}). Please try again.`, true);
+                    } else {
+                        showMessage('Failed to connect to the server. Please check your network.', true);
+                    }
+                } finally {
+                    getCodeButton.innerHTML = 'Get Security Code';
+                    getCodeButton.removeAttribute('disabled');
                 }
             }
 
-            // Back to email button handler
-            backToEmailButton.addEventListener('click', (e) => {
-                codeStep.classList.add('hidden');
-                emailStep.classList.remove('hidden');
-                securityCodeInput.value = '';
-                messageBox.classList.add('hidden');
-                emailInput.focus();
-            });
+            // Submit code
+            async function handleSubmitCode(e) {
+                e.preventDefault();
+                e.stopPropagation();
 
-            // Submit code button handler
-            submitCodeButton.addEventListener('click', async (e) => {
-                console.log('Submit code button clicked');
-                const email = emailInput.value;
-                const code = securityCodeInput.value;
-                
-                console.log('Email:', email, 'Code:', code);
+                const email = getContenteditableValue(emailInput);
+                const code = getContenteditableValue(securityCodeInput);
 
-                if (!code) {
-                    showMessage('Please enter the security code.', true);
+                console.log('🔍 Verifying code:', { email, code });
+
+                if (!code || code.length !== 6 || isNaN(code)) {
+                    codeError.classList.remove('hidden');
+                    securityCodeInput.classList.add('shake');
+                    setTimeout(() => securityCodeInput.classList.remove('shake'), 500);
                     return;
                 }
 
-                // Show loading state
-                const originalText = submitCodeButton.innerHTML;
-                submitCodeButton.disabled = true;
-                submitCodeButton.innerHTML = `
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Verifying...
-                `;
+                codeError.classList.add('hidden');
+                submitCodeButton.innerHTML = '<div class="loader"></div> Verifying...';
+                submitCodeButton.setAttribute('disabled', 'true');
 
                 try {
-                    const response = await fetch(getApiUrl(CONFIG.API.VERIFY_SECURITY_CODE), {
+                    const apiUrl = CONFIG.BACKEND_URL + CONFIG.API.VERIFY_SECURITY_CODE;
+                    console.log('🌐 Making API request to:', apiUrl);
+                    
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ email, code }),
+                        body: JSON.stringify({ email, code })
                     });
 
-                    const result = await response.json();
+                    console.log('📡 API response status:', response.status);
 
-                    if (response.ok) {
-                        showMessage(result.message);
-                        // Store enrollment data
-                        localStorage.setItem(CONFIG.STORAGE.IS_LOGGED_IN, 'true');
-                        localStorage.setItem(CONFIG.STORAGE.ENROLLED_EMAIL, email);
-                        
-                        setTimeout(() => {
-                            // Redirect with the course ID
-                            if (courseId) {
-                                window.location.href = `contentspage.html?course=${courseId}`;
-                            } else {
-                                window.location.href = 'Courses.html';
-                            }
-                        }, 1000);
-                    } else {
-                        showMessage(result.message, true);
-                        // Reset button state
-                        submitCodeButton.disabled = false;
-                        submitCodeButton.innerHTML = originalText;
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
+
+                    const result = await response.json();
+                    console.log('✅ API response:', result);
+                    
+                    showMessage('Code verified successfully!');
+                    
+                    // Store enrollment data
+                    localStorage.setItem(CONFIG.STORAGE.IS_LOGGED_IN, 'true');
+                    localStorage.setItem(CONFIG.STORAGE.ENROLLED_EMAIL, email);
+                    console.log('💾 Stored enrollment data in localStorage');
+
+                    goToStep(3);
+                    console.log('🎯 Moved to step 3');
+                    
+                    // Redirect after 2 seconds
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const courseId = urlParams.get('course');
+                    console.log('🔗 Course ID from URL:', courseId);
+                    
+                    setTimeout(() => {
+                        const redirectUrl = courseId ? `contentspage.html?course=${courseId}` : 'Courses.html';
+                        console.log('🚀 Redirecting to:', redirectUrl);
+                        
+                        // Allow the redirect by setting the flag
+                        allowRedirect = true;
+                        
+                        // Use window.location.replace for a clean redirect
+                        window.location.replace(redirectUrl);
+                    }, 2000);
                 } catch (error) {
-                    showMessage('Failed to connect to the server. Please ensure the backend is running.', true);
-                    // Reset button state
-                    submitCodeButton.disabled = false;
-                    submitCodeButton.innerHTML = originalText;
+                    console.error('❌ Error verifying code:', error);
+                    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                        showMessage('CORS error: Please ensure your backend allows cross-origin requests.', true);
+                    } else if (error.message.includes('HTTP error')) {
+                        showMessage(`Server error (${error.message}). Please try again.`, true);
+                    } else {
+                        showMessage('Failed to connect to the server. Please check your network.', true);
+                    }
+                } finally {
+                    submitCodeButton.innerHTML = 'Verify & Enroll';
+                    submitCodeButton.removeAttribute('disabled');
                 }
+            }
+
+            // Event listeners with maximum prevention
+            getCodeButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                console.log('🖱️ Get code button clicked');
+                handleGetCode(e).catch(console.error);
+                return false;
+            });
+            
+            submitCodeButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                console.log('🖱️ Submit code button clicked');
+                handleSubmitCode(e).catch(console.error);
+                return false;
+            });
+            
+            backToEmailButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                console.log('🖱️ Back button clicked');
+                goToStep(1);
+                return false;
             });
 
-            // Allow Enter key to submit code
-            securityCodeInput.addEventListener('keypress', (e) => {
+            emailInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
-                    submitCodeButton.click();
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    console.log('⌨️ Enter pressed in email field');
+                    handleGetCode(e).catch(console.error);
+                    return false;
                 }
             });
 
-            // Form removed - no longer needed
+            securityCodeInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    console.log('⌨️ Enter pressed in code field');
+                    handleSubmitCode(e).catch(console.error);
+                    return false;
+                }
+            });
+
+            securityCodeInput.addEventListener('input', (e) => {
+                const text = e.target.textContent;
+                const numbersOnly = text.replace(/\D/g, '').slice(0, 6);
+                if (text !== numbersOnly) {
+                    e.target.textContent = numbersOnly;
+                }
+                codeError.classList.add('hidden');
+            });
+
+            emailInput.addEventListener('input', () => {
+                emailError.classList.add('hidden');
+            });
+
+            // Prevent default form-like behavior on contenteditable
+            emailInput.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text').trim();
+                setContenteditableValue(emailInput, text);
+            });
+
+            securityCodeInput.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text').trim();
+                const numbersOnly = text.replace(/\D/g, '').slice(0, 6);
+                setContenteditableValue(securityCodeInput, numbersOnly);
+            });
+
+            // Initialize
+            updateProgress();
+            emailInput.focus();
+            
+            console.log('✅ All event listeners attached with maximum prevention');
         });
     </script>
 </body>
+
 </html>
