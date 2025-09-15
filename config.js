@@ -1,7 +1,7 @@
 // Centralized configuration for the E-Learning platform
 const CONFIG = {
     // Backend URL - Change this to switch between local and production
-    BACKEND_URL: "http://localhost:10000",
+    BACKEND_URL: "https://e-learning-backend-hywc.onrender.com",
     
     // Alternative: Use production URL
     // BACKEND_URL: "https://e-learning-backend-hywc.onrender.com",
